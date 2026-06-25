@@ -15,6 +15,50 @@
   .nav-links a{font-size:.85rem;color:#999;text-decoration:none;transition:color .2s}
   .nav-links a:hover,.nav-links a.active{color:#111}
 
+  /* DARK MODE */
+  body.dark{background:#111;color:#F0F0F0}
+  body.dark nav{border-bottom-color:#222}
+  body.dark .logo{color:#F0F0F0}
+  body.dark .nav-links a{color:#555}
+  body.dark .nav-links a:hover,body.dark .nav-links a.active{color:#F0F0F0}
+  body.dark .sidemenu{border-right-color:#222}
+  body.dark .smlink{color:#444}
+  body.dark .smlink:hover,body.dark .smlink.active{color:#F0F0F0}
+  body.dark h1{color:#F0F0F0}
+  body.dark h1 i{color:#555}
+  body.dark .tagline{color:#555}
+  body.dark .about-body p{color:#888}
+  body.dark .about-body p strong{color:#F0F0F0}
+  body.dark .next-btn{color:#555}
+  body.dark .next-btn:hover{color:#F0F0F0}
+  body.dark .edu-card{border-color:#222}
+  body.dark .edu-card:hover{border-color:#E07B54}
+  body.dark .edu-title{color:#F0F0F0}
+  body.dark .edu-sub{color:#555}
+  body.dark .edu-year{color:#444}
+  body.dark .cert{border-bottom-color:#1E1E1E}
+  body.dark .cert-name{color:#AAA}
+  body.dark .cert-issuer{color:#444}
+  body.dark .exp-title{color:#F0F0F0}
+  body.dark .exp-company{color:#555}
+  body.dark .exp-date{color:#444}
+  body.dark .exp-bullets li{color:#777}
+  body.dark .exp-bullets li::before{color:#333}
+  body.dark .section-label{color:#444}
+  body.dark .sidemenu-label{color:#333}
+
+  .toggle{
+    display:flex;align-items:center;gap:.5rem;cursor:pointer;
+    background:none;border:1px solid #E8E8E8;border-radius:50px;
+    padding:.35rem .8rem;transition:border-color .2s;
+  }
+  .toggle:hover{border-color:#BBB}
+  body.dark .toggle{border-color:#2A2A2A}
+  body.dark .toggle:hover{border-color:#555}
+  .toggle-icon{font-size:.85rem}
+  .toggle-label{font-size:.75rem;color:#999;font-family:'DM Sans',sans-serif}
+  body.dark .toggle-label{color:#555}
+
   .layout{display:flex;flex:1;overflow:hidden}
 
   /* SIDE MENU */
@@ -109,6 +153,10 @@
 
 <nav>
   <a href="index.html" class="logo">Anup Regmi</a>
+  <button class="toggle" onclick="toggleDark()" id="themeBtn">
+    <span class="toggle-icon">🌙</span>
+    <span class="toggle-label" id="themeLabel">Dark</span>
+  </button>
   <ul class="nav-links">
     <li><a href="about.html" class="active">About</a></li>
     <li><a href="projects.html">Projects</a></li>
@@ -218,6 +266,11 @@
     document.querySelectorAll('.smlink').forEach(b=>b.classList.remove('active'));
     document.getElementById('panel-'+id).classList.add('active');
     if(btn) btn.classList.add('active');
+  }
+  function toggleDark(){
+    const dark = document.body.classList.toggle('dark');
+    document.getElementById('themeLabel').textContent = dark ? 'Light' : 'Dark';
+    document.querySelector('.toggle-icon').textContent = dark ? '☀️' : '🌙';
   }
 </script>
 </body>
