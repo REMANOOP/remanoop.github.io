@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>About — Anup Regmi</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',sans-serif;background:#fff;color:#111;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 5rem;border-bottom:1px solid #F0F0F0;flex-shrink:0}
+  .logo{font-size:.95rem;font-weight:500;color:#111;text-decoration:none}
+  .nav-links{display:flex;gap:2.5rem;list-style:none}
+  .nav-links a{font-size:.85rem;color:#999;text-decoration:none;transition:color .2s}
+  .nav-links a:hover,.nav-links a.active{color:#111}
+
+  .layout{display:flex;flex:1;overflow:hidden}
+
+  /* SIDE MENU */
+  .sidemenu{
+    width:200px;flex-shrink:0;border-right:1px solid #F0F0F0;
+    padding:3rem 2.5rem;display:flex;flex-direction:column;gap:.4rem;
+  }
+  .sidemenu-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:#CCC;margin-bottom:1rem}
+  .smlink{
+    font-size:.88rem;color:#BBB;text-decoration:none;padding:.5rem 0;
+    display:flex;align-items:center;gap:.7rem;cursor:pointer;
+    transition:color .2s;border:none;background:none;font-family:'DM Sans',sans-serif;
+    text-align:left;
+  }
+  .smlink:hover{color:#111}
+  .smlink.active{color:#111;font-weight:500}
+  .smlink .dot{
+    width:5px;height:5px;border-radius:50%;background:#E07B54;
+    opacity:0;transition:opacity .2s;flex-shrink:0;
+  }
+  .smlink.active .dot{opacity:1}
+
+  /* PANELS */
+  .panels{flex:1;overflow:hidden;position:relative}
+  .panel{
+    position:absolute;inset:0;
+    padding:3.5rem 5rem;overflow-y:auto;
+    opacity:0;transform:translateY(18px);
+    transition:opacity .4s ease, transform .4s ease;
+    pointer-events:none;
+  }
+  .panel.active{opacity:1;transform:translateY(0);pointer-events:all}
+
+  .section-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#CCC;margin-bottom:1.2rem}
+  h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,3vw,2.6rem);font-weight:400;line-height:1.25;color:#111;margin-bottom:.6rem}
+  h1 i{font-style:italic;color:#AAA}
+  .tagline{font-size:.85rem;color:#BBB;margin-bottom:2.8rem;letter-spacing:.01em}
+
+  /* About text */
+  .about-body{max-width:520px}
+  .about-body p{font-size:.92rem;color:#555;line-height:2;margin-bottom:1.1rem;font-weight:300}
+  .about-body p strong{font-weight:500;color:#111}
+
+  .next-btn{
+    display:inline-flex;align-items:center;gap:.5rem;margin-top:2rem;
+    font-size:.8rem;color:#999;cursor:pointer;border:none;background:none;
+    font-family:'DM Sans',sans-serif;transition:color .2s;padding:0;
+  }
+  .next-btn:hover{color:#111}
+  .next-btn .arrow{transition:transform .2s}
+  .next-btn:hover .arrow{transform:translateX(4px)}
+
+  /* Education */
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:620px;margin-bottom:2rem}
+  .edu-card{
+    border:1px solid #F0F0F0;border-radius:10px;padding:1.6rem;
+    transition:border-color .25s,transform .25s;cursor:default;
+  }
+  .edu-card:hover{border-color:#E07B54;transform:translateY(-3px)}
+  .edu-year{font-size:.7rem;color:#CCC;letter-spacing:.08em;margin-bottom:.8rem;text-transform:uppercase}
+  .edu-title{font-size:.92rem;font-weight:500;color:#111;margin-bottom:.3rem}
+  .edu-sub{font-size:.8rem;color:#AAA;line-height:1.6}
+
+  .cert-list{max-width:520px}
+  .cert{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0;border-bottom:1px solid #F5F5F5;gap:1rem}
+  .cert:last-child{border-bottom:none}
+  .cert-name{font-size:.85rem;color:#333;font-weight:400}
+  .cert-issuer{font-size:.75rem;color:#BBB;white-space:nowrap}
+
+  /* Experience */
+  .exp-list{max-width:580px}
+  .exp{padding:1.8rem 0;border-bottom:1px solid #F5F5F5}
+  .exp:first-child{padding-top:0}
+  .exp:last-child{border-bottom:none}
+  .exp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.5rem}
+  .exp-title{font-size:.92rem;font-weight:500;color:#111}
+  .exp-date{font-size:.75rem;color:#CCC;white-space:nowrap}
+  .exp-company{font-size:.8rem;color:#AAA;margin-bottom:.7rem}
+  .exp-bullets{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+  .exp-bullets li{font-size:.82rem;color:#666;line-height:1.7;font-weight:300;padding-left:1rem;position:relative}
+  .exp-bullets li::before{content:'—';position:absolute;left:0;color:#DDD}
+
+  @media(max-width:640px){
+    .sidemenu{width:140px;padding:2rem 1.5rem}
+    .panel{padding:2rem 1.5rem}
+    nav,{padding-left:1.5rem;padding-right:1.5rem}
+    .edu-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Anup Regmi</a>
+  <ul class="nav-links">
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="layout">
+  <div class="sidemenu">
+    <div class="sidemenu-label">About</div>
+    <button class="smlink active" onclick="show('me',this)"><span class="dot"></span>Me</button>
+    <button class="smlink" onclick="show('education',this)"><span class="dot"></span>Education</button>
+    <button class="smlink" onclick="show('experience',this)"><span class="dot"></span>Experience</button>
+  </div>
+
+  <div class="panels">
+
+    <!-- ME -->
+    <div class="panel active" id="panel-me">
+      <p class="section-label">About me</p>
+      <h1>Hi, I'm Anup —<br><i>fresh grad, ready to work.</i></h1>
+      <p class="tagline">Brisbane, Australia · Open to help desk, IT support & junior sysadmin roles</p>
+      <div class="about-body">
+        <p>I recently completed my <strong>Bachelor of Information Technology</strong> at Victoria University and I'm currently in the IT Professional Year Program in Brisbane.</p>
+        <p>I'm not picky about where I start — I care about <strong>learning fast, showing up, and doing good work.</strong> Whether it's resetting passwords on a help desk or configuring a network, I'm ready for it.</p>
+        <p>Outside of IT, I spent years working as a pizza chef through my entire degree. High pressure, long hours, and a team depending on you — turned out to be great preparation for IT support.</p>
+      </div>
+      <button class="next-btn" onclick="show('education', document.querySelector('.smlink:nth-child(3)'))">
+        Education <span class="arrow">→</span>
+      </button>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="panel" id="panel-education">
+      <p class="section-label">Education</p>
+      <h1>Where I <i>learned.</i></h1>
+      <p class="tagline">Degrees, programs & certifications</p>
+
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-year">2022 — 2025</div>
+          <div class="edu-title">Bachelor of Information Technology</div>
+          <div class="edu-sub">Victoria University, Melbourne</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-year">Sep 2025 — Present</div>
+          <div class="edu-title">IT Professional Year Program</div>
+          <div class="edu-sub">ECA Professional Year, Melbourne</div>
+        </div>
+      </div>
+
+      <div class="cert-list">
+        <div class="cert"><span class="cert-name">Endpoint Detection & Response</span><span class="cert-issuer">Qualys · Mar 2026</span></div>
+        <div class="cert"><span class="cert-name">Intro to Penetration Testing</span><span class="cert-issuer">Security Blue Team · Jan 2026</span></div>
+        <div class="cert"><span class="cert-name">CompTIA Security+ Fundamentals</span><span class="cert-issuer">Skillsoft · Jan 2026</span></div>
+        <div class="cert"><span class="cert-name">Linux and SQL</span><span class="cert-issuer">Google · Nov 2025</span></div>
+        <div class="cert"><span class="cert-name">Foundations of Cybersecurity</span><span class="cert-issuer">Google · Oct 2025</span></div>
+      </div>
+
+      <button class="next-btn" onclick="show('experience', document.querySelector('.smlink:nth-child(4)'))">
+        Experience <span class="arrow">→</span>
+      </button>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="panel" id="panel-experience">
+      <p class="section-label">Experience</p>
+      <h1>Where I <i>showed up.</i></h1>
+      <p class="tagline">Work that shaped how I think</p>
+
+      <div class="exp-list">
+        <div class="exp">
+          <div class="exp-top">
+            <div class="exp-title">IT Support Intern — Web Systems</div>
+            <div class="exp-date">Nov 2023 — Feb 2024</div>
+          </div>
+          <div class="exp-company">Private Contractor, Melbourne</div>
+          <ul class="exp-bullets">
+            <li>Improved website load times by 60% through systematic optimisation</li>
+            <li>Built and deployed a responsive e-commerce site from scratch</li>
+            <li>Implemented features using HTML, CSS, JavaScript and React</li>
+            <li>Managed version control via Git/GitHub throughout the project</li>
+          </ul>
+        </div>
+        <div class="exp">
+          <div class="exp-top">
+            <div class="exp-title">Pizza Chef (Part-time)</div>
+            <div class="exp-date">Jul 2023 — Jun 2026</div>
+          </div>
+          <div class="exp-company">La Famiglia Italian Restaurant, Melbourne</div>
+          <ul class="exp-bullets">
+            <li>Worked full shifts while completing a full-time IT degree simultaneously</li>
+            <li>Maintained quality and speed under high-volume pressure every service</li>
+            <li>Proved time management, teamwork, and attention to detail — for real</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function show(id, btn){
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.smlink').forEach(b=>b.classList.remove('active'));
+    document.getElementById('panel-'+id).classList.add('active');
+    if(btn) btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
