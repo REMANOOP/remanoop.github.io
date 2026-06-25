@@ -3,377 +3,136 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Anup Regmi – IT Portfolio</title>
+<title>Anup Regmi</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  :root{
-    --c1:#7C3AED;--c2:#06B6D4;--c3:#F59E0B;--c4:#EC4899;--c5:#10B981;
-    --bg:#0F0F1A;--card:#1A1A2E;--text:#F1F0FF;--muted:#A89FC0;
-    --radius:14px;
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:#fff;
+    color:#111;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
   }
-  html{scroll-behavior:smooth}
-  body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+  nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:2rem 5rem;
+    border-bottom:1px solid #F0F0F0;
+  }
+  .logo{
+    font-size:.95rem;
+    font-weight:500;
+    color:#111;
+    text-decoration:none;
+  }
+  .nav-links{
+    display:flex;
+    gap:2.5rem;
+    list-style:none;
+  }
+  .nav-links a{
+    font-size:.85rem;
+    color:#999;
+    text-decoration:none;
+    transition:color .2s;
+  }
+  .nav-links a:hover{color:#111}
 
-  nav{position:fixed;top:0;width:100%;background:rgba(15,15,26,.92);backdrop-filter:blur(12px);
-    display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:100;
-    border-bottom:1px solid rgba(124,58,237,.2)}
-  .logo{font-size:1.2rem;font-weight:700;background:linear-gradient(90deg,var(--c1),var(--c2));
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent}
-  .nav-links{display:flex;gap:1.5rem;list-style:none}
-  .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
-  .nav-links a:hover{color:var(--text)}
+  main{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:0 5rem;
+  }
+  .tag{
+    font-size:.75rem;
+    color:#999;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    margin-bottom:1.5rem;
+  }
+  h1{
+    font-size:clamp(2rem,4.5vw,3.2rem);
+    font-weight:400;
+    line-height:1.25;
+    color:#111;
+    margin-bottom:1.5rem;
+    max-width:600px;
+  }
+  .bio{
+    font-size:.95rem;
+    color:#666;
+    line-height:1.9;
+    max-width:440px;
+    margin-bottom:2.5rem;
+  }
+  .cta{
+    display:flex;
+    gap:1.5rem;
+    align-items:center;
+  }
+  .cta a{
+    font-size:.85rem;
+    color:#111;
+    text-decoration:none;
+    transition:color .2s;
+  }
+  .cta a:hover{color:#999}
+  .cta a.primary{
+    background:#111;
+    color:#fff;
+    padding:.6rem 1.4rem;
+    border-radius:2px;
+    transition:background .2s;
+  }
+  .cta a.primary:hover{background:#333}
+  .cta span{color:#DDD;font-size:.8rem}
 
-  section{padding:5rem 2rem;max-width:960px;margin:0 auto}
+  footer{
+    padding:2rem 5rem;
+    font-size:.78rem;
+    color:#CCC;
+    display:flex;
+    justify-content:space-between;
+    border-top:1px solid #F0F0F0;
+  }
 
-  /* HERO */
-  #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:6rem}
-  .hero-tag{display:inline-block;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.4);
-    color:#A78BFA;border-radius:50px;padding:.35rem 1rem;font-size:.8rem;margin-bottom:1.2rem}
-  .hero-name{font-size:clamp(2.2rem,6vw,4rem);font-weight:800;line-height:1.1;margin-bottom:.8rem}
-  .hero-name span{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c4));
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent}
-  .hero-sub{font-size:1.1rem;color:var(--muted);max-width:520px;line-height:1.7;margin-bottom:2rem}
-  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
-  .btn{padding:.75rem 1.75rem;border-radius:50px;text-decoration:none;font-size:.95rem;font-weight:600;transition:all .25s;cursor:pointer;border:none}
-  .btn-primary{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff}
-  .btn-primary:hover{opacity:.85;transform:translateY(-2px)}
-  .btn-outline{background:transparent;border:1.5px solid rgba(124,58,237,.5);color:#A78BFA}
-  .btn-outline:hover{background:rgba(124,58,237,.1);transform:translateY(-2px)}
-  .hero-pills{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:2.5rem}
-  .pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
-    border-radius:50px;padding:.3rem .9rem;font-size:.78rem;color:var(--muted)}
-
-  /* SECTION HEADERS */
-  .sec-label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--c2);margin-bottom:.5rem}
-  .sec-title{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;margin-bottom:.5rem}
-  .sec-line{width:48px;height:3px;border-radius:2px;margin-bottom:2.5rem;
-    background:linear-gradient(90deg,var(--c1),var(--c2))}
-
-  /* ABOUT */
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
-  .about-text{color:var(--muted);line-height:1.8;font-size:.97rem}
-  .about-text p{margin-bottom:1rem}
-  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-  .stat-card{background:var(--card);border-radius:var(--radius);padding:1.2rem;
-    border:1px solid rgba(255,255,255,.06);text-align:center}
-  .stat-num{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--c1),var(--c2));
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent}
-  .stat-label{font-size:.78rem;color:var(--muted);margin-top:.3rem}
-
-  /* SKILLS */
-  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
-  .skill-group{background:var(--card);border-radius:var(--radius);padding:1.4rem;
-    border:1px solid rgba(255,255,255,.06)}
-  .skill-group-title{font-size:.85rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
-  .skill-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-  .skill-badges{display:flex;flex-wrap:wrap;gap:.5rem}
-  .badge{font-size:.75rem;padding:.3rem .7rem;border-radius:50px;font-weight:500}
-
-  /* PROJECTS */
-  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.2rem}
-  .proj-card{background:var(--card);border-radius:var(--radius);padding:1.5rem;
-    border:1px solid rgba(255,255,255,.06);transition:transform .25s,border-color .25s;position:relative;overflow:hidden}
-  .proj-card:hover{transform:translateY(-4px);border-color:rgba(124,58,237,.4)}
-  .proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-  .proj-card:nth-child(1)::before{background:linear-gradient(90deg,var(--c1),var(--c2))}
-  .proj-card:nth-child(2)::before{background:linear-gradient(90deg,var(--c4),var(--c3))}
-  .proj-card:nth-child(3)::before{background:linear-gradient(90deg,var(--c5),var(--c2))}
-  .proj-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;
-    justify-content:center;font-size:1.2rem;margin-bottom:1rem}
-  .proj-title{font-size:1rem;font-weight:700;margin-bottom:.4rem}
-  .proj-desc{font-size:.85rem;color:var(--muted);line-height:1.65;margin-bottom:1rem}
-  .proj-tags{display:flex;flex-wrap:wrap;gap:.4rem}
-  .proj-tag{font-size:.7rem;padding:.25rem .6rem;border-radius:50px;
-    background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);color:#A78BFA}
-
-  /* CERTS */
-  .certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
-  .cert-card{background:var(--card);border-radius:var(--radius);padding:1.2rem 1.4rem;
-    border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:1rem}
-  .cert-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;
-    justify-content:center;font-size:1.1rem;flex-shrink:0}
-  .cert-name{font-size:.85rem;font-weight:600;margin-bottom:.2rem}
-  .cert-issuer{font-size:.75rem;color:var(--muted)}
-
-  /* CONTACT */
-  .contact-card{background:var(--card);border-radius:var(--radius);padding:2.5rem;
-    border:1px solid rgba(124,58,237,.2);text-align:center;max-width:600px;margin:0 auto}
-  .contact-card h3{font-size:1.4rem;font-weight:700;margin-bottom:.5rem}
-  .contact-card p{color:var(--muted);margin-bottom:2rem;line-height:1.7}
-  .contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem}
-  .contact-link{display:flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;
-    border-radius:50px;text-decoration:none;font-size:.9rem;font-weight:500;transition:all .25s}
-  .contact-link.email{background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);color:#A78BFA}
-  .contact-link.linkedin{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:var(--c2)}
-  .contact-link:hover{transform:translateY(-2px);filter:brightness(1.15)}
-
-  footer{text-align:center;padding:2rem;color:var(--muted);font-size:.8rem;
-    border-top:1px solid rgba(255,255,255,.05)}
-
-  @media(max-width:640px){
-    .about-grid{grid-template-columns:1fr}
-    .nav-links{display:none}
+  @media(max-width:600px){
+    nav,main,footer{padding-left:1.8rem;padding-right:1.8rem}
   }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">AR</div>
+  <a href="index.html" class="logo">Anup Regmi</a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="contact.html">Contact</a></li>
   </ul>
-  <a href="mailto:anupme78@gmail.com" class="btn btn-primary" style="padding:.55rem 1.2rem;font-size:.85rem">Hire me</a>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-tag">👋 Available for IT roles in Brisbane</div>
-  <h1 class="hero-name">Hi, I'm <span>Anup Regmi</span></h1>
-  <p class="hero-sub">IT graduate with a passion for networks, cybersecurity & building things that work. Open to IT support, sysadmin, and entry-level security roles.</p>
-  <div class="hero-btns">
-    <a href="#projects" class="btn btn-primary">See my work</a>
-    <a href="#contact" class="btn btn-outline">Get in touch</a>
+<main>
+  <p class="tag">Brisbane, Australia</p>
+  <h1>IT Graduate open to support, infrastructure & security roles.</h1>
+  <p class="bio">I'm Anup — a recent IT graduate with hands-on experience in networking, virtualisation, and cybersecurity. I enjoy solving technical problems and learning fast.</p>
+  <div class="cta">
+    <a href="projects.html" class="primary">View projects</a>
+    <span>·</span>
+    <a href="contact.html">Get in touch</a>
+    <span>·</span>
+    <a href="https://linkedin.com/in/anup-regmi-49a605239" target="_blank">LinkedIn ↗</a>
   </div>
-  <div class="hero-pills">
-    <span class="pill">🎓 Bachelor of IT – Victoria University</span>
-    <span class="pill">📍 Brisbane, Australia</span>
-    <span class="pill">🔐 Cybersecurity certified</span>
-    <span class="pill">☁️ Azure & VMware</span>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="sec-label">Who I am</div>
-  <div class="sec-title">About Me</div>
-  <div class="sec-line"></div>
-  <div class="about-grid">
-    <div>
-      <div class="about-text">
-        <p>I'm a recent IT graduate from Victoria University with hands-on experience in network infrastructure, virtualisation, system administration, and cybersecurity fundamentals.</p>
-        <p>I've worked as an IT Support Intern, built enterprise network simulations, developed mobile apps, and earned certifications from Google, Qualys, and Security Blue Team. Currently completing my IT Professional Year Program.</p>
-        <p>I'm comfortable on the help desk or diving into broader infrastructure and security projects — a fast learner who takes ownership from first contact to resolution.</p>
-      </div>
-    </div>
-    <div class="about-stats">
-      <div class="stat-card">
-        <div class="stat-num">3+</div>
-        <div class="stat-label">Technical projects completed</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">6</div>
-        <div class="stat-label">Industry certifications</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">60%</div>
-        <div class="stat-label">Website load time improved</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">1K+</div>
-        <div class="stat-label">API items integrated</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="sec-label">What I know</div>
-  <div class="sec-title">Skills</div>
-  <div class="sec-line"></div>
-  <div class="skills-grid">
-
-    <div class="skill-group">
-      <div class="skill-group-title">
-        <div class="skill-dot" style="background:var(--c1)"></div>
-        Networking & Sysadmin
-      </div>
-      <div class="skill-badges">
-        <span class="badge" style="background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);color:#A78BFA">Active Directory</span>
-        <span class="badge" style="background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);color:#A78BFA">DNS / DHCP</span>
-        <span class="badge" style="background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);color:#A78BFA">TCP/IP</span>
-        <span class="badge" style="background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);color:#A78BFA">VPN</span>
-        <span class="badge" style="background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);color:#A78BFA">Windows 10/11</span>
-        <span class="badge" style="background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);color:#A78BFA">Ubuntu Linux</span>
-      </div>
-    </div>
-
-    <div class="skill-group">
-      <div class="skill-group-title">
-        <div class="skill-dot" style="background:var(--c2)"></div>
-        Virtualisation & Cloud
-      </div>
-      <div class="skill-badges">
-        <span class="badge" style="background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:var(--c2)">VMware</span>
-        <span class="badge" style="background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:var(--c2)">Azure VM</span>
-        <span class="badge" style="background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:var(--c2)">VM Deployment</span>
-        <span class="badge" style="background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:var(--c2)">Remote Desktop</span>
-      </div>
-    </div>
-
-    <div class="skill-group">
-      <div class="skill-group-title">
-        <div class="skill-dot" style="background:var(--c4)"></div>
-        Cybersecurity
-      </div>
-      <div class="skill-badges">
-        <span class="badge" style="background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.3);color:var(--c4)">EDR (Qualys)</span>
-        <span class="badge" style="background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.3);color:var(--c4)">MITRE ATT&CK</span>
-        <span class="badge" style="background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.3);color:var(--c4)">Pen Testing</span>
-        <span class="badge" style="background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.3);color:var(--c4)">Vulnerability Assessment</span>
-      </div>
-    </div>
-
-    <div class="skill-group">
-      <div class="skill-group-title">
-        <div class="skill-dot" style="background:var(--c3)"></div>
-        Development
-      </div>
-      <div class="skill-badges">
-        <span class="badge" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--c3)">Python</span>
-        <span class="badge" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--c3)">JavaScript</span>
-        <span class="badge" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--c3)">Kotlin</span>
-        <span class="badge" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--c3)">Bash</span>
-        <span class="badge" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--c3)">REST APIs</span>
-        <span class="badge" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--c3)">Git / GitHub</span>
-        <span class="badge" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--c3)">HTML/CSS/React</span>
-        <span class="badge" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--c3)">SQL</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="sec-label">What I've built</div>
-  <div class="sec-title">Projects</div>
-  <div class="sec-line"></div>
-  <div class="projects-grid">
-
-    <div class="proj-card">
-      <div class="proj-icon" style="background:rgba(124,58,237,.15)">🖧</div>
-      <div class="proj-title">Enterprise Network Simulation</div>
-      <div class="proj-desc">Designed and configured a full simulated enterprise environment with Active Directory, DNS, DHCP, and file servers using VMware. Automated lab deployment with scripts, cutting setup time by 30%.</div>
-      <div class="proj-tags">
-        <span class="proj-tag">VMware</span>
-        <span class="proj-tag">Active Directory</span>
-        <span class="proj-tag">DNS/DHCP</span>
-        <span class="proj-tag">Bash</span>
-      </div>
-    </div>
-
-    <div class="proj-card">
-      <div class="proj-icon" style="background:rgba(236,72,153,.12)">📱</div>
-      <div class="proj-title">Android Task Manager App</div>
-      <div class="proj-desc">Built a mobile task management app with user authentication and real-time API integration. Reduced crashes by 40% through Hilt-based dependency injection and robust session handling.</div>
-      <div class="proj-tags">
-        <span class="proj-tag">Kotlin</span>
-        <span class="proj-tag">Android Studio</span>
-        <span class="proj-tag">Hilt</span>
-        <span class="proj-tag">REST API</span>
-      </div>
-    </div>
-
-    <div class="proj-card">
-      <div class="proj-icon" style="background:rgba(16,185,129,.12)">🎬</div>
-      <div class="proj-title">Movie Recommendation System</div>
-      <div class="proj-desc">Integrated the TMDB API to manage data for 1,000+ movies with secure login, session management, and user authentication — demonstrating real-world API connectivity and access control.</div>
-      <div class="proj-tags">
-        <span class="proj-tag">Python / Flask</span>
-        <span class="proj-tag">TMDB API</span>
-        <span class="proj-tag">Auth</span>
-        <span class="proj-tag">SQL</span>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Experience highlight -->
-  <div style="margin-top:1.5rem;background:var(--card);border-radius:var(--radius);padding:1.5rem 1.8rem;
-    border:1px solid rgba(255,255,255,.06);display:flex;gap:1.2rem;align-items:flex-start">
-    <div style="font-size:1.5rem;flex-shrink:0">💼</div>
-    <div>
-      <div style="font-size:.75rem;color:var(--c2);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.08em">Work experience</div>
-      <div style="font-weight:700;margin-bottom:.4rem">IT Support Intern – Web Systems</div>
-      <div style="font-size:.85rem;color:var(--muted);line-height:1.65">
-        Private Contractor, Melbourne (Nov 2023 – Feb 2024) · Improved site load times by 60% · Built and deployed a responsive e-commerce website · Implemented features in HTML, CSS, JavaScript, and React · Managed version control via Git/GitHub.
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CERTIFICATIONS -->
-<section id="certs">
-  <div class="sec-label">Credentials</div>
-  <div class="sec-title">Certifications</div>
-  <div class="sec-line"></div>
-  <div class="certs-grid">
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(236,72,153,.12);font-size:1.3rem">🛡️</div>
-      <div>
-        <div class="cert-name">Endpoint Detection & Response</div>
-        <div class="cert-issuer">Qualys · Mar 2026</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(6,182,212,.1);font-size:1.3rem">🔍</div>
-      <div>
-        <div class="cert-name">Intro to Penetration Testing</div>
-        <div class="cert-issuer">Security Blue Team · Jan 2026</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(124,58,237,.12);font-size:1.3rem">🔐</div>
-      <div>
-        <div class="cert-name">CompTIA Security+ Fundamentals</div>
-        <div class="cert-issuer">Skillsoft · Jan 2026</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(16,185,129,.1);font-size:1.3rem">🐧</div>
-      <div>
-        <div class="cert-name">Linux and SQL</div>
-        <div class="cert-issuer">Google · Nov 2025</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(245,158,11,.1);font-size:1.3rem">🌐</div>
-      <div>
-        <div class="cert-name">Foundations of Cybersecurity</div>
-        <div class="cert-issuer">Google · Oct 2025</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="sec-label">Say hello</div>
-  <div class="sec-title">Get in Touch</div>
-  <div class="sec-line"></div>
-  <div class="contact-card">
-    <h3>Let's work together 🚀</h3>
-    <p>I'm actively looking for IT support, sysadmin, or entry-level cybersecurity roles in Brisbane. Whether you have an opportunity, a question, or just want to connect — I'd love to hear from you!</p>
-    <div class="contact-links">
-      <a href="mailto:anupme78@gmail.com" class="contact-link email">
-        ✉️ anupme78@gmail.com
-      </a>
-      <a href="https://linkedin.com/in/anup-regmi-49a605239" target="_blank" class="contact-link linkedin">
-        💼 LinkedIn Profile
-      </a>
-    </div>
-    <p style="margin-top:1.2rem;font-size:.82rem;color:var(--muted)">📞 0420 792 346 · Brisbane, Australia</p>
-  </div>
-</section>
+</main>
 
 <footer>
-  <p>Built with 💜 by Anup Regmi · 2026</p>
+  <span>© 2026 Anup Regmi</span>
+  <span>anupme78@gmail.com</span>
 </footer>
 
 </body>
