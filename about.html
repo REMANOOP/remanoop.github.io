@@ -7,160 +7,118 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'DM Sans',sans-serif;background:#fff;color:#111;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+  body{font-family:'DM Sans',sans-serif;background:#fff;color:#111;height:100vh;display:flex;flex-direction:column;overflow:hidden;transition:background .3s,color .3s}
 
-  nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 5rem;border-bottom:1px solid #F0F0F0;flex-shrink:0}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;border-bottom:1px solid #F0F0F0;flex-shrink:0}
   .logo{font-size:.95rem;font-weight:500;color:#111;text-decoration:none}
-  .nav-links{display:flex;gap:2.5rem;list-style:none}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
   .nav-links a{font-size:.85rem;color:#999;text-decoration:none;transition:color .2s}
   .nav-links a:hover,.nav-links a.active{color:#111}
+  .toggle{background:none;border:1px solid #E8E8E8;border-radius:50px;padding:.3rem .55rem;cursor:pointer;font-size:.85rem;transition:border-color .2s}
+  .toggle:hover{border-color:#BBB}
 
-  /* DARK MODE */
+  .layout{display:flex;flex:1;overflow:hidden}
+
+  .sidemenu{width:180px;flex-shrink:0;border-right:1px solid #F0F0F0;padding:2.5rem 2rem;display:flex;flex-direction:column;gap:.3rem}
+  .sidemenu-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:#CCC;margin-bottom:.8rem}
+  .smlink{font-size:.88rem;color:#BBB;padding:.45rem 0;display:flex;align-items:center;gap:.6rem;cursor:pointer;transition:color .2s;border:none;background:none;font-family:'DM Sans',sans-serif;text-align:left}
+  .smlink:hover{color:#111}
+  .smlink.active{color:#111;font-weight:500}
+  .smlink .dot{width:5px;height:5px;border-radius:50%;background:#E07B54;opacity:0;transition:opacity .2s;flex-shrink:0}
+  .smlink.active .dot{opacity:1}
+
+  .panels{flex:1;overflow:hidden;position:relative}
+  .panel{position:absolute;inset:0;padding:2.5rem 4rem;overflow-y:auto;opacity:0;transform:translateY(16px);transition:opacity .35s ease,transform .35s ease;pointer-events:none}
+  .panel.active{opacity:1;transform:translateY(0);pointer-events:all}
+
+  .section-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#CCC;margin-bottom:1rem}
+  h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:400;line-height:1.2;color:#111;margin-bottom:.4rem}
+  h1 i{font-style:italic;color:#AAA}
+  .tagline{font-size:.82rem;color:#BBB;margin-bottom:2rem;letter-spacing:.01em}
+
+  .about-body{max-width:560px}
+  .about-body p{font-size:.92rem;color:#555;line-height:2;margin-bottom:1rem;font-weight:300}
+  .about-body p strong{font-weight:500;color:#111}
+
+  .next-btn{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.5rem;font-size:.8rem;color:#999;cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;transition:color .2s;padding:0}
+  .next-btn:hover{color:#111}
+  .next-btn:hover .arrow{transform:translateX(4px)}
+  .arrow{transition:transform .2s}
+
+  /* EDUCATION */
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:580px;margin-bottom:1.8rem}
+  .edu-card{border:1px solid #F0F0F0;border-radius:10px;padding:1.4rem;transition:border-color .25s,transform .25s;cursor:default}
+  .edu-card:hover{border-color:#E07B54;transform:translateY(-3px)}
+  .edu-year{font-size:.68rem;color:#CCC;letter-spacing:.08em;margin-bottom:.6rem;text-transform:uppercase}
+  .edu-title{font-size:.9rem;font-weight:500;color:#111;margin-bottom:.25rem}
+  .edu-sub{font-size:.78rem;color:#AAA;line-height:1.6}
+
+  .cert-list{max-width:560px}
+  .cert{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid #F5F5F5;gap:1rem}
+  .cert:last-child{border-bottom:none}
+  .cert-name{font-size:.85rem;color:#333}
+  .cert-issuer{font-size:.73rem;color:#BBB;white-space:nowrap}
+
+  /* EXPERIENCE */
+  .exp-list{max-width:600px}
+  .exp{padding:1.6rem 0;border-bottom:1px solid #F5F5F5}
+  .exp:first-child{padding-top:0}
+  .exp:last-child{border-bottom:none}
+  .exp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.3rem}
+  .exp-title{font-size:.92rem;font-weight:500;color:#111}
+  .exp-date{font-size:.73rem;color:#CCC;white-space:nowrap}
+  .exp-company{font-size:.78rem;color:#AAA;margin-bottom:.9rem}
+  .exp-bullets{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+  .exp-bullets li{font-size:.85rem;color:#555;line-height:1.75;font-weight:300;padding-left:1.1rem;position:relative}
+  .exp-bullets li::before{content:'—';position:absolute;left:0;color:#DDD}
+
+  /* DARK */
   body.dark{background:#111;color:#F0F0F0}
-  body.dark nav{border-bottom-color:#222}
+  body.dark nav,body.dark .sidemenu{border-color:#1E1E1E}
   body.dark .logo{color:#F0F0F0}
-  body.dark .nav-links a{color:#555}
+  body.dark .nav-links a{color:#444}
   body.dark .nav-links a:hover,body.dark .nav-links a.active{color:#F0F0F0}
-  body.dark .sidemenu{border-right-color:#222}
+  body.dark .toggle{border-color:#222}
+  body.dark .sidemenu-label{color:#333}
   body.dark .smlink{color:#444}
   body.dark .smlink:hover,body.dark .smlink.active{color:#F0F0F0}
   body.dark h1{color:#F0F0F0}
-  body.dark h1 i{color:#555}
-  body.dark .tagline{color:#555}
-  body.dark .about-body p{color:#888}
+  body.dark h1 i{color:#444}
+  body.dark .tagline,.section-label{color:#444}
+  body.dark .about-body p{color:#777}
   body.dark .about-body p strong{color:#F0F0F0}
-  body.dark .next-btn{color:#555}
+  body.dark .next-btn{color:#444}
   body.dark .next-btn:hover{color:#F0F0F0}
-  body.dark .edu-card{border-color:#222}
+  body.dark .edu-card{border-color:#1E1E1E}
   body.dark .edu-card:hover{border-color:#E07B54}
   body.dark .edu-title{color:#F0F0F0}
-  body.dark .edu-sub{color:#555}
-  body.dark .edu-year{color:#444}
-  body.dark .cert{border-bottom-color:#1E1E1E}
+  body.dark .edu-sub,.edu-year{color:#444}
+  body.dark .cert{border-bottom-color:#1A1A1A}
   body.dark .cert-name{color:#AAA}
   body.dark .cert-issuer{color:#444}
   body.dark .exp-title{color:#F0F0F0}
   body.dark .exp-company{color:#555}
   body.dark .exp-date{color:#444}
   body.dark .exp-bullets li{color:#777}
-  body.dark .exp-bullets li::before{color:#333}
-  body.dark .section-label{color:#444}
-  body.dark .sidemenu-label{color:#333}
-
-  .toggle{
-    display:flex;align-items:center;gap:.5rem;cursor:pointer;
-    background:none;border:1px solid #E8E8E8;border-radius:50px;
-    padding:.35rem .8rem;transition:border-color .2s;
-  }
-  .toggle:hover{border-color:#BBB}
-  body.dark .toggle{border-color:#2A2A2A}
-  body.dark .toggle:hover{border-color:#555}
-  .toggle-icon{font-size:.85rem}
-  .toggle-label{font-size:.75rem;color:#999;font-family:'DM Sans',sans-serif}
-  body.dark .toggle-label{color:#555}
-
-  .layout{display:flex;flex:1;overflow:hidden}
-
-  /* SIDE MENU */
-  .sidemenu{
-    width:200px;flex-shrink:0;border-right:1px solid #F0F0F0;
-    padding:3rem 2.5rem;display:flex;flex-direction:column;gap:.4rem;
-  }
-  .sidemenu-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:#CCC;margin-bottom:1rem}
-  .smlink{
-    font-size:.88rem;color:#BBB;text-decoration:none;padding:.5rem 0;
-    display:flex;align-items:center;gap:.7rem;cursor:pointer;
-    transition:color .2s;border:none;background:none;font-family:'DM Sans',sans-serif;
-    text-align:left;
-  }
-  .smlink:hover{color:#111}
-  .smlink.active{color:#111;font-weight:500}
-  .smlink .dot{
-    width:5px;height:5px;border-radius:50%;background:#E07B54;
-    opacity:0;transition:opacity .2s;flex-shrink:0;
-  }
-  .smlink.active .dot{opacity:1}
-
-  /* PANELS */
-  .panels{flex:1;overflow:hidden;position:relative}
-  .panel{
-    position:absolute;inset:0;
-    padding:3.5rem 5rem;overflow-y:auto;
-    opacity:0;transform:translateY(18px);
-    transition:opacity .4s ease, transform .4s ease;
-    pointer-events:none;
-  }
-  .panel.active{opacity:1;transform:translateY(0);pointer-events:all}
-
-  .section-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#CCC;margin-bottom:1.2rem}
-  h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,3vw,2.6rem);font-weight:400;line-height:1.25;color:#111;margin-bottom:.6rem}
-  h1 i{font-style:italic;color:#AAA}
-  .tagline{font-size:.85rem;color:#BBB;margin-bottom:2.8rem;letter-spacing:.01em}
-
-  /* About text */
-  .about-body{max-width:520px}
-  .about-body p{font-size:.92rem;color:#555;line-height:2;margin-bottom:1.1rem;font-weight:300}
-  .about-body p strong{font-weight:500;color:#111}
-
-  .next-btn{
-    display:inline-flex;align-items:center;gap:.5rem;margin-top:2rem;
-    font-size:.8rem;color:#999;cursor:pointer;border:none;background:none;
-    font-family:'DM Sans',sans-serif;transition:color .2s;padding:0;
-  }
-  .next-btn:hover{color:#111}
-  .next-btn .arrow{transition:transform .2s}
-  .next-btn:hover .arrow{transform:translateX(4px)}
-
-  /* Education */
-  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:620px;margin-bottom:2rem}
-  .edu-card{
-    border:1px solid #F0F0F0;border-radius:10px;padding:1.6rem;
-    transition:border-color .25s,transform .25s;cursor:default;
-  }
-  .edu-card:hover{border-color:#E07B54;transform:translateY(-3px)}
-  .edu-year{font-size:.7rem;color:#CCC;letter-spacing:.08em;margin-bottom:.8rem;text-transform:uppercase}
-  .edu-title{font-size:.92rem;font-weight:500;color:#111;margin-bottom:.3rem}
-  .edu-sub{font-size:.8rem;color:#AAA;line-height:1.6}
-
-  .cert-list{max-width:520px}
-  .cert{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0;border-bottom:1px solid #F5F5F5;gap:1rem}
-  .cert:last-child{border-bottom:none}
-  .cert-name{font-size:.85rem;color:#333;font-weight:400}
-  .cert-issuer{font-size:.75rem;color:#BBB;white-space:nowrap}
-
-  /* Experience */
-  .exp-list{max-width:580px}
-  .exp{padding:1.8rem 0;border-bottom:1px solid #F5F5F5}
-  .exp:first-child{padding-top:0}
-  .exp:last-child{border-bottom:none}
-  .exp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.5rem}
-  .exp-title{font-size:.92rem;font-weight:500;color:#111}
-  .exp-date{font-size:.75rem;color:#CCC;white-space:nowrap}
-  .exp-company{font-size:.8rem;color:#AAA;margin-bottom:.7rem}
-  .exp-bullets{list-style:none;display:flex;flex-direction:column;gap:.4rem}
-  .exp-bullets li{font-size:.82rem;color:#666;line-height:1.7;font-weight:300;padding-left:1rem;position:relative}
-  .exp-bullets li::before{content:'—';position:absolute;left:0;color:#DDD}
+  body.dark .exp-bullets li::before{color:#2A2A2A}
 
   @media(max-width:640px){
-    .sidemenu{width:140px;padding:2rem 1.5rem}
+    .sidemenu{width:130px;padding:2rem 1.2rem}
     .panel{padding:2rem 1.5rem}
-    nav,{padding-left:1.5rem;padding-right:1.5rem}
+    nav{padding-left:1.5rem;padding-right:1.5rem}
     .edu-grid{grid-template-columns:1fr}
   }
 </style>
 </head>
 <body>
-
 <nav>
   <a href="index.html" class="logo">Anup Regmi</a>
-  <button class="toggle" onclick="toggleDark()" id="themeBtn">
-    <span class="toggle-icon">🌙</span>
-  </button>
   <ul class="nav-links">
     <li><a href="about.html" class="active">About</a></li>
     <li><a href="projects.html">Projects</a></li>
     <li><a href="skills.html">Skills</a></li>
     <li><a href="contact.html">Contact</a></li>
+    <li><button class="toggle" onclick="toggleDark()" id="themeBtn">☀️</button></li>
   </ul>
 </nav>
 
@@ -180,13 +138,11 @@
       <h1>Hi, I'm Anup —<br><i>fresh grad, ready to work.</i></h1>
       <p class="tagline">Brisbane, Australia · Open to help desk, IT support & junior sysadmin roles</p>
       <div class="about-body">
-        <p>I recently completed my <strong>Bachelor of Information Technology</strong> at Victoria University and I'm currently in the IT Professional Year Program in Brisbane.</p>
-        <p>I'm not picky about where I start — I care about <strong>learning fast, showing up, and doing good work.</strong> Whether it's resetting passwords on a help desk or configuring a network, I'm ready for it.</p>
-        <p>Outside of IT, I spent years working as a pizza chef through my entire degree. High pressure, long hours, and a team depending on you — turned out to be great preparation for IT support.</p>
+        <p>I recently completed my <strong>Bachelor of Information Technology</strong> at Victoria University and I'm currently completing the IT Professional Year Program in Brisbane.</p>
+        <p>I'm not picky about where I start — I care about <strong>learning fast, showing up, and doing good work.</strong> Whether it's a help desk ticket, a network issue, or a deployment script, I'll figure it out.</p>
+        <p>Outside of IT, I spent three years working as a pizza chef through my entire degree — long shifts, high pressure, and a team depending on me every night. That taught me more about reliability and staying calm under pressure than any classroom could.</p>
       </div>
-      <button class="next-btn" onclick="show('education', document.querySelector('.smlink:nth-child(3)'))">
-        Education <span class="arrow">→</span>
-      </button>
+      <button class="next-btn" onclick="show('education', document.querySelectorAll('.smlink')[1])">Education <span class="arrow">→</span></button>
     </div>
 
     <!-- EDUCATION -->
@@ -194,7 +150,6 @@
       <p class="section-label">Education</p>
       <h1>Where I <i>learned.</i></h1>
       <p class="tagline">Degrees, programs & certifications</p>
-
       <div class="edu-grid">
         <div class="edu-card">
           <div class="edu-year">2022 — 2025</div>
@@ -207,7 +162,6 @@
           <div class="edu-sub">ECA Professional Year, Melbourne</div>
         </div>
       </div>
-
       <div class="cert-list">
         <div class="cert"><span class="cert-name">Endpoint Detection & Response</span><span class="cert-issuer">Qualys · Mar 2026</span></div>
         <div class="cert"><span class="cert-name">Intro to Penetration Testing</span><span class="cert-issuer">Security Blue Team · Jan 2026</span></div>
@@ -215,18 +169,14 @@
         <div class="cert"><span class="cert-name">Linux and SQL</span><span class="cert-issuer">Google · Nov 2025</span></div>
         <div class="cert"><span class="cert-name">Foundations of Cybersecurity</span><span class="cert-issuer">Google · Oct 2025</span></div>
       </div>
-
-      <button class="next-btn" onclick="show('experience', document.querySelector('.smlink:nth-child(4)'))">
-        Experience <span class="arrow">→</span>
-      </button>
+      <button class="next-btn" onclick="show('experience', document.querySelectorAll('.smlink')[2])">Experience <span class="arrow">→</span></button>
     </div>
 
     <!-- EXPERIENCE -->
     <div class="panel" id="panel-experience">
       <p class="section-label">Experience</p>
       <h1>Where I <i>showed up.</i></h1>
-      <p class="tagline">Work that shaped how I think</p>
-
+      <p class="tagline">Work that shaped how I think and operate</p>
       <div class="exp-list">
         <div class="exp">
           <div class="exp-top">
@@ -235,10 +185,10 @@
           </div>
           <div class="exp-company">Private Contractor, Melbourne</div>
           <ul class="exp-bullets">
-            <li>Improved website load times by 60% through systematic optimisation</li>
-            <li>Built and deployed a responsive e-commerce site from scratch</li>
-            <li>Implemented features using HTML, CSS, JavaScript and React</li>
-            <li>Managed version control via Git/GitHub throughout the project</li>
+            <li>Diagnosed and resolved front-end performance bottlenecks, cutting website load times by <strong>60%</strong> — a measurable win that came from methodically profiling assets, eliminating render-blocking resources, and optimising image delivery.</li>
+            <li>Supported the end-to-end build and deployment of a responsive e-commerce website, collaborating directly with the client on requirements and ensuring the site worked flawlessly across all screen sizes and devices.</li>
+            <li>Implemented and tested user-facing features using <strong>HTML, CSS, JavaScript and React</strong> — handling everything from UI components to client-side logic and cross-browser compatibility fixes.</li>
+            <li>Maintained a clean version control workflow using <strong>Git and GitHub</strong>, writing meaningful commit messages and ensuring reliable rollback points throughout the project lifecycle.</li>
           </ul>
         </div>
         <div class="exp">
@@ -248,9 +198,9 @@
           </div>
           <div class="exp-company">La Famiglia Italian Restaurant, Melbourne</div>
           <ul class="exp-bullets">
-            <li>Worked full shifts while completing a full-time IT degree simultaneously</li>
-            <li>Maintained quality and speed under high-volume pressure every service</li>
-            <li>Proved time management, teamwork, and attention to detail — for real</li>
+            <li>Managed demanding kitchen shifts simultaneously alongside a <strong>full-time IT degree</strong> for over two years — demonstrating the kind of time management and discipline that is rare at graduate level.</li>
+            <li>Operated in a fast-paced, high-volume environment where consistency, speed, and attention to detail were non-negotiable — skills that translate directly into IT support and operations roles.</li>
+            <li>Worked as part of a close-knit team under pressure every service, building strong habits around <strong>communication, reliability, and keeping calm when things go wrong</strong> — exactly what's needed on a busy help desk.</li>
           </ul>
         </div>
       </div>
@@ -260,16 +210,15 @@
 </div>
 
 <script>
-  function show(id, btn){
+  function show(id,btn){
     document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
     document.querySelectorAll('.smlink').forEach(b=>b.classList.remove('active'));
     document.getElementById('panel-'+id).classList.add('active');
-    if(btn) btn.classList.add('active');
+    if(btn)btn.classList.add('active');
   }
   function toggleDark(){
-    const dark = document.body.classList.toggle('dark');
-    document.getElementById('themeLabel').textContent = dark ? 'Light' : 'Dark';
-    document.querySelector('.toggle-icon').textContent = dark ? '☀️' : '🌙';
+    const dark=document.body.classList.toggle('dark');
+    document.getElementById('themeBtn').textContent=dark?'🌙':'☀️';
   }
 </script>
 </body>
