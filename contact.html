@@ -47,29 +47,29 @@
   footer{padding:1.5rem 4rem;font-size:.75rem;color:#333;display:flex;justify-content:space-between;border-top:1px solid #1E1E1E}
 
   /* LIGHT MODE */
-  body.light{background:#fff;color:#111}
-  body.light nav{border-bottom-color:#F0F0F0}
-  body.light .logo{color:#111}
-  body.light .nav-links a{color:#999}
-  body.light .nav-links a:hover,body.light .nav-links a.active{color:#111}
-  body.light .toggle{border-color:#E8E8E8}
-  body.light .toggle:hover{border-color:#BBB}
-  body.light h1{color:#111}
-  body.light h1 i{color:#AAA}
-  body.light .sub{color:#BBB}
-  body.light .left{border-right-color:#F0F0F0}
-  body.light .link-item{border-color:#F0F0F0;color:#111}
-  body.light .link-icon{background:#FAFAFA}
-  body.light .link-label{color:#BBB}
-  body.light .link-val{color:#111}
-  body.light .section-label{color:#CCC}
-  body.light .form-title{color:#CCC}
-  body.light .field label{color:#AAA}
-  body.light .field input,body.light .field textarea{background:#fff;border-color:#EBEBEB;color:#111}
-  body.light .submit{background:#111;color:#fff}
-  body.light .submit:hover{background:#333}
-  body.light .form-note{color:#CCC}
-  body.light footer{border-top-color:#F0F0F0;color:#CCC}
+  html.light body{background:#fff;color:#111}
+  html.light nav{border-bottom-color:#F0F0F0}
+  html.light .logo{color:#111}
+  html.light .nav-links a{color:#999}
+  html.light .nav-links a:hover,html.light .nav-links a.active{color:#111}
+  html.light .toggle{border-color:#E8E8E8}
+  html.light .toggle:hover{border-color:#BBB}
+  html.light h1{color:#111}
+  html.light h1 i{color:#AAA}
+  html.light .sub{color:#BBB}
+  html.light .left{border-right-color:#F0F0F0}
+  html.light .link-item{border-color:#F0F0F0;color:#111}
+  html.light .link-icon{background:#FAFAFA}
+  html.light .link-label{color:#BBB}
+  html.light .link-val{color:#111}
+  html.light .section-label{color:#CCC}
+  html.light .form-title{color:#CCC}
+  html.light .field label{color:#AAA}
+  html.light .field input,html.light .field textarea{background:#fff;border-color:#EBEBEB;color:#111}
+  html.light .submit{background:#111;color:#fff}
+  html.light .submit:hover{background:#333}
+  html.light .form-note{color:#CCC}
+  html.light footer{border-top-color:#F0F0F0;color:#CCC}
 
   @media(max-width:720px){
     main{grid-template-columns:1fr}
@@ -79,6 +79,7 @@
     nav,footer{padding-left:1.8rem;padding-right:1.8rem}
   }
 </style>
+<script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light');</script>
 </head>
 <body>
 <nav>
