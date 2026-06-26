@@ -116,6 +116,7 @@
   body.light .out{color:#AAA}
   body.light #term-input{color:#111}
   body.light .cmd{color:#111}
+  body.light .prompt{color:#C0603A}
   body.light .timeline::before{background:#F0F0F0}
   body.light .tdot{border-color:#DDD;background:#fff}
   body.light .ttitle{color:#111}
@@ -276,6 +277,13 @@
   function toggleDark() {
     var isLight = document.body.classList.toggle('light');
     document.getElementById('themeBtn').textContent = isLight ? '🌙' : '☀️';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  }
+
+  // Apply saved theme on load
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light');
+    document.getElementById('themeBtn').textContent = '🌙';
   }
 
   var commands = {
