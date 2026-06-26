@@ -93,44 +93,45 @@
   .exp-bullets li strong{color:#F0F0F0;font-weight:500}
 
   /* LIGHT */
-  body.light{background:#fff;color:#111}
-  body.light nav,body.light .sidemenu{border-color:#F0F0F0}
-  body.light .logo{color:#111}
-  body.light .nav-links a{color:#999}
-  body.light .nav-links a:hover,body.light .nav-links a.active{color:#111}
-  body.light .toggle{border-color:#E8E8E8}
-  body.light .sidemenu-label{color:#CCC}
-  body.light .smlink{color:#BBB}
-  body.light .smlink:hover,body.light .smlink.active{color:#111}
-  body.light h1{color:#111}
-  body.light h1 i{color:#AAA}
-  body.light .tagline{color:#BBB}
-  body.light .section-label{color:#CCC}
-  body.light .me-text p{color:#555}
-  body.light .me-text p strong{color:#111}
-  body.light .next-btn{color:#BBB}
-  body.light .next-btn:hover{color:#111}
-  body.light .terminal{background:#F7F7F7;border-color:#E8E8E8}
-  body.light .term-bar{border-bottom-color:#EBEBEB}
-  body.light .term-input-row{border-top-color:#EBEBEB}
-  body.light .out{color:#AAA}
-  body.light #term-input{color:#111}
-  body.light .cmd{color:#111}
-  body.light .prompt{color:#C0603A}
-  body.light .timeline::before{background:#F0F0F0}
-  body.light .tdot{border-color:#DDD;background:#fff}
-  body.light .ttitle{color:#111}
-  body.light .tsub,.tyear{color:#AAA}
-  body.light .tdesc{color:#777}
-  body.light .cert-badge{border-color:#F0F0F0}
-  body.light .cert-name{color:#111}
-  body.light .cert-issuer{color:#AAA}
-  body.light .exp-title{color:#111}
-  body.light .exp-company{color:#AAA}
-  body.light .exp-date{color:#CCC}
-  body.light .exp-bullets li{color:#666}
-  body.light .exp-bullets li::before{color:#DDD}
-  body.light .exp-bullets li strong{color:#111}
+  html.light body{background:#fff;color:#111}
+  html.light nav,html.light .sidemenu{border-color:#F0F0F0}
+  html.light .logo{color:#111}
+  html.light .nav-links a{color:#999}
+  html.light .nav-links a:hover,html.light .nav-links a.active{color:#111}
+  html.light .toggle{border-color:#E8E8E8}
+  html.light .sidemenu-label{color:#CCC}
+  html.light .smlink{color:#BBB}
+  html.light .smlink:hover,html.light .smlink.active{color:#111}
+  html.light h1{color:#111}
+  html.light h1 i{color:#AAA}
+  html.light .tagline{color:#BBB}
+  html.light .section-label{color:#CCC}
+  html.light .me-text p{color:#555}
+  html.light .me-text p strong{color:#111}
+  html.light .next-btn{color:#BBB}
+  html.light .next-btn:hover{color:#111}
+  html.light .terminal{background:#F7F7F7;border-color:#E8E8E8}
+  html.light .term-bar{border-bottom-color:#EBEBEB}
+  html.light .term-input-row{border-top-color:#EBEBEB}
+  html.light .out{color:#AAA}
+  html.light #term-input{color:#111}
+  html.light .cmd{color:#111}
+  html.light .prompt{color:#C0603A}
+  html.light .timeline::before{background:#F0F0F0}
+  html.light .tdot{border-color:#DDD;background:#fff}
+  html.light .ttitle{color:#111}
+  html.light .tsub{color:#AAA}
+  html.light .tdesc{color:#777}
+  html.light .tyear{color:#CCC}
+  html.light .cert-badge{border-color:#F0F0F0}
+  html.light .cert-name{color:#111}
+  html.light .cert-issuer{color:#AAA}
+  html.light .exp-title{color:#111}
+  html.light .exp-company{color:#AAA}
+  html.light .exp-date{color:#CCC}
+  html.light .exp-bullets li{color:#666}
+  html.light .exp-bullets li::before{color:#DDD}
+  html.light .exp-bullets li strong{color:#111}
 
   @media(max-width:768px){
     .me-grid{grid-template-columns:1fr}
@@ -139,6 +140,7 @@
     nav{padding-left:1.5rem;padding-right:1.5rem}
   }
 </style>
+<script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light');</script>
 </head>
 <body>
 <nav>
@@ -275,15 +277,12 @@
   }
 
   function toggleDark() {
-    var isLight = document.body.classList.toggle('light');
+    var isLight = document.documentElement.classList.toggle('light');
     document.getElementById('themeBtn').textContent = isLight ? '🌙' : '☀️';
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
   }
-
-  // Apply saved theme on load
-  if (localStorage.getItem('theme') === 'light') {
-    document.body.classList.add('light');
-    document.getElementById('themeBtn').textContent = '🌙';
+  if(document.documentElement.classList.contains('light')){
+    document.getElementById('themeBtn').textContent='🌙';
   }
 
   var commands = {
