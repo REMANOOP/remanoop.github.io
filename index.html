@@ -4,98 +4,78 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Anup Regmi</title>
-<script>if(sessionStorage.getItem('theme')==='light')document.documentElement.classList.add('light');</script>
+<script>
+  // Run before anything renders
+  (function(){
+    if(sessionStorage.getItem('theme')==='light'){
+      document.documentElement.setAttribute('data-theme','light');
+    }
+  })();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'DM Sans',sans-serif;background:#111;color:#F0F0F0;min-height:100vh;display:flex;flex-direction:column;transition:background .3s,color .3s}
 
-  nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;border-bottom:1px solid #1E1E1E}
-  .logo{font-size:.95rem;font-weight:500;color:#F0F0F0;text-decoration:none}
+  :root{
+    --bg:#111;--fg:#F0F0F0;--border:#1E1E1E;--muted:#444;
+    --sub:#666;--card:#1A1A1A;--faint:#2A2A2A;
+  }
+  [data-theme="light"]{
+    --bg:#fff;--fg:#111;--border:#F0F0F0;--muted:#999;
+    --sub:#AAA;--card:#FAFAFA;--faint:#EBEBEB;
+  }
+
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;display:flex;flex-direction:column;transition:background .3s,color .3s}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;border-bottom:1px solid var(--border)}
+  .logo{font-size:.95rem;font-weight:500;color:var(--fg);text-decoration:none}
   .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
-  .nav-links a{font-size:.85rem;color:#444;text-decoration:none;transition:color .2s}
-  .nav-links a:hover{color:#F0F0F0}
-  .toggle{background:none;border:1px solid #222;border-radius:50px;padding:.3rem .55rem;cursor:pointer;font-size:.85rem;transition:border-color .2s}
-  .toggle:hover{border-color:#555}
+  .nav-links a{font-size:.85rem;color:var(--muted);text-decoration:none;transition:color .2s}
+  .nav-links a:hover{color:var(--fg)}
+  .toggle{background:none;border:1px solid var(--border);border-radius:50px;padding:.3rem .55rem;cursor:pointer;font-size:.85rem;transition:border-color .2s}
+  .toggle:hover{border-color:var(--muted)}
 
   main{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0}
-
-  /* LEFT */
-  .left{display:flex;flex-direction:column;justify-content:center;padding:4rem;border-right:1px solid #1E1E1E}
-  .tag{font-size:.72rem;color:#444;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.4rem;display:flex;align-items:center;gap:.6rem}
-  h1{font-family:'DM Serif Display',serif;font-size:clamp(2.4rem,4vw,3.4rem);font-weight:400;line-height:1.15;margin-bottom:1.4rem;color:#F0F0F0}
+  .left{display:flex;flex-direction:column;justify-content:center;padding:4rem;border-right:1px solid var(--border)}
+  .tag{font-size:.72rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.4rem}
+  h1{font-family:'DM Serif Display',serif;font-size:clamp(2.4rem,4vw,3.4rem);font-weight:400;line-height:1.15;margin-bottom:1.4rem;color:var(--fg)}
+  h1 i{font-style:italic;color:var(--muted)}
   .typing-wrap{display:inline-block;min-width:220px}
   .typed{color:#E07B54;font-style:italic}
   .cursor{display:inline-block;width:2px;height:.85em;background:#E07B54;margin-left:2px;vertical-align:middle;animation:blink .7s infinite}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-
-  .bio{font-size:.92rem;color:#666;line-height:1.95;max-width:420px;margin-bottom:2.4rem;font-weight:300}
-  .bio strong{color:#F0F0F0;font-weight:500}
-
+  .bio{font-size:.92rem;color:var(--sub);line-height:1.95;max-width:420px;margin-bottom:2.4rem;font-weight:300}
+  .bio strong{color:var(--fg);font-weight:500}
   .cta{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:3rem}
   .cta a{font-size:.85rem;text-decoration:none;transition:all .2s}
-  .cta a.primary{background:#F0F0F0;color:#111;padding:.65rem 1.6rem;border-radius:3px;font-weight:500}
-  .cta a.primary:hover{background:#CCC}
-  .cta a.sec{color:#444;border-bottom:1px solid #333;padding-bottom:1px}
-  .cta a.sec:hover{color:#F0F0F0;border-color:#F0F0F0}
-
+  .btn-primary{background:var(--fg);color:var(--bg);padding:.65rem 1.6rem;border-radius:3px;font-weight:500}
+  .btn-primary:hover{opacity:.85}
+  .btn-sec{color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:1px}
+  .btn-sec:hover{color:var(--fg);border-color:var(--fg)}
   .pills{display:flex;flex-wrap:wrap;gap:.5rem}
-  .pill{font-size:.72rem;color:#444;border:1px solid #1E1E1E;border-radius:50px;padding:.3rem .9rem;transition:border-color .2s,color .2s;cursor:default}
+  .pill{font-size:.72rem;color:var(--muted);border:1px solid var(--border);border-radius:50px;padding:.3rem .9rem;transition:border-color .2s,color .2s;cursor:default}
   .pill:hover{border-color:#E07B54;color:#E07B54}
 
-  /* RIGHT */
-  .right{display:flex;flex-direction:column;justify-content:center;padding:4rem;gap:1px}
-  .right-label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#333;margin-bottom:1.5rem}
-
-  .card{border:1px solid #1E1E1E;border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:.8rem;transition:border-color .25s,transform .25s;cursor:default;position:relative;overflow:hidden}
+  .right{display:flex;flex-direction:column;justify-content:center;padding:4rem}
+  .right-label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem}
+  .card{border:1px solid var(--border);border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:.8rem;transition:border-color .25s,transform .25s;position:relative;overflow:hidden}
   .card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:#E07B54;transform:scaleY(0);transform-origin:bottom;transition:transform .3s}
-  .card:hover{border-color:#2A2A2A;transform:translateX(6px)}
+  .card:hover{transform:translateX(6px)}
   .card:hover::before{transform:scaleY(1)}
   .card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.4rem}
-  .card-title{font-size:.9rem;font-weight:500;color:#F0F0F0}
-  .card-date{font-size:.72rem;color:#333}
-  .card-sub{font-size:.8rem;color:#555;line-height:1.6}
+  .card-title{font-size:.9rem;font-weight:500;color:var(--fg)}
+  .card-date{font-size:.72rem;color:var(--muted)}
+  .card-sub{font-size:.8rem;color:var(--sub)}
+  .divider{width:100%;height:1px;background:var(--border);margin:1.5rem 0}
 
-  .divider{width:100%;height:1px;background:#1E1E1E;margin:1.5rem 0}
-
-  footer{padding:1.5rem 4rem;font-size:.75rem;color:#333;display:flex;justify-content:space-between;border-top:1px solid #1E1E1E}
-
-  /* LIGHT */
-  body.light{background:#fff;color:#111}
-  body.light nav{border-bottom-color:#F0F0F0}
-  body.light .logo{color:#111}
-  body.light .nav-links a{color:#999}
-  body.light .nav-links a:hover{color:#111}
-  body.light .toggle{border-color:#E8E8E8}
-  body.light h1{color:#111}
-  body.light .bio{color:#666}
-  body.light .bio strong{color:#111}
-  body.light .tag{color:#BBB}
-  body.light .cta a.primary{background:#111;color:#fff}
-  body.light .cta a.primary:hover{background:#333}
-  body.light .cta a.sec{color:#999;border-color:#DDD}
-  body.light .cta a.sec:hover{color:#111;border-color:#111}
-  body.light .pill{border-color:#EBEBEB;color:#AAA}
-  body.light .pill:hover{border-color:#E07B54;color:#E07B54}
-  body.light main{border-color:#F0F0F0}
-  body.light .left{border-right-color:#F0F0F0}
-  body.light .right-label{color:#CCC}
-  body.light .card{border-color:#F0F0F0}
-  body.light .card:hover{border-color:#E8E8E8}
-  body.light .card-title{color:#111}
-  body.light .card-date{color:#CCC}
-  body.light .card-sub{color:#AAA}
-  body.light .divider{background:#F0F0F0}
-  body.light footer{border-top-color:#F0F0F0;color:#CCC}
+  footer{padding:1.5rem 4rem;font-size:.75rem;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--border)}
 
   @media(max-width:768px){
     main{grid-template-columns:1fr}
-    .left{border-right:none;border-bottom:1px solid #1E1E1E;padding:2.5rem 1.8rem}
+    .left{border-right:none;border-bottom:1px solid var(--border);padding:2.5rem 1.8rem}
     .right{padding:2.5rem 1.8rem}
     nav,footer{padding-left:1.8rem;padding-right:1.8rem}
   }
 </style>
-<script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light');</script>
 </head>
 <body>
 <nav>
@@ -105,7 +85,7 @@
     <li><a href="projects.html">Projects</a></li>
     <li><a href="skills.html">Skills</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><button class="toggle" id="themeBtn" onclick="toggleDark()">☀️</button></li>
+    <li><button class="toggle" id="themeBtn" onclick="toggleTheme()">☀️</button></li>
   </ul>
 </nav>
 
@@ -115,9 +95,9 @@
     <h1>Hi, I'm Anup.<br>I'm a <span class="typing-wrap"><span class="typed" id="typed"></span><span class="cursor"></span></span></h1>
     <p class="bio">A recent IT grad with hands-on experience in <strong>networking, cybersecurity,</strong> and <strong>web systems.</strong> I'm eager, I learn fast, and I'm ready for my first full-time role.</p>
     <div class="cta">
-      <a href="projects.html" class="primary">View my work</a>
-      <a href="contact.html" class="sec">Get in touch</a>
-      <a href="https://linkedin.com/in/anup-regmi-49a605239" target="_blank" class="sec">LinkedIn ↗</a>
+      <a href="projects.html" class="cta btn-primary">View my work</a>
+      <a href="contact.html" class="cta btn-sec">Get in touch</a>
+      <a href="https://linkedin.com/in/anup-regmi-49a605239" target="_blank" class="cta btn-sec">LinkedIn ↗</a>
     </div>
     <div class="pills">
       <span class="pill">IT Support</span>
@@ -133,7 +113,6 @@
 
   <div class="right">
     <div class="right-label">Snapshot</div>
-
     <div class="card">
       <div class="card-top">
         <div class="card-title">IT Professional Year Program</div>
@@ -141,7 +120,6 @@
       </div>
       <div class="card-sub">ECA Professional Year, Melbourne</div>
     </div>
-
     <div class="card">
       <div class="card-top">
         <div class="card-title">Bachelor of Information Technology</div>
@@ -149,9 +127,7 @@
       </div>
       <div class="card-sub">Victoria University, Melbourne</div>
     </div>
-
     <div class="divider"></div>
-
     <div class="card">
       <div class="card-top">
         <div class="card-title">IT Support Intern</div>
@@ -159,7 +135,6 @@
       </div>
       <div class="card-sub">Web systems · HTML, CSS, JS, React · 60% load time improvement</div>
     </div>
-
     <div class="card">
       <div class="card-top">
         <div class="card-title">6 Certifications</div>
@@ -167,9 +142,7 @@
       </div>
       <div class="card-sub">Google · Qualys · Security Blue Team · Skillsoft</div>
     </div>
-
     <div class="divider"></div>
-
     <div class="card">
       <div class="card-top">
         <div class="card-title">Movie Recommendation System</div>
@@ -177,7 +150,6 @@
       </div>
       <div class="card-sub">TMDB API · Python · Flask · Secure login & session management</div>
     </div>
-
   </div>
 </main>
 
@@ -187,26 +159,34 @@
 </footer>
 
 <script>
-  const words=['IT Graduate.','Problem Solver.','Fast Learner.','Cybersecurity Enthusiast.','Network Enthusiast.','Detail-Oriented Worker.','Team Player.','Quick Learner.','Brisbane Local.'];
-  let wi=0,ci=0,deleting=false;
-  const el=document.getElementById('typed');
-  function type(){
-    const w=words[wi];
-    if(!deleting){
-      el.textContent=w.slice(0,++ci);
-      if(ci===w.length){deleting=true;setTimeout(type,1400);return}
+  // Set button icon on load
+  document.getElementById('themeBtn').textContent =
+    document.documentElement.getAttribute('data-theme')==='light' ? '🌙' : '☀️';
+
+  function toggleTheme(){
+    var isLight = document.documentElement.getAttribute('data-theme')==='light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      sessionStorage.setItem('theme','dark');
+      document.getElementById('themeBtn').textContent='☀️';
     } else {
-      el.textContent=w.slice(0,--ci);
-      if(ci===0){deleting=false;wi=(wi+1)%words.length}
+      document.documentElement.setAttribute('data-theme','light');
+      sessionStorage.setItem('theme','light');
+      document.getElementById('themeBtn').textContent='🌙';
     }
+  }
+
+  // Typing
+  var words=['IT Graduate.','Problem Solver.','Fast Learner.','Cybersecurity Enthusiast.','Network Enthusiast.','Detail-Oriented Worker.','Team Player.','Quick Learner.','Brisbane Local.'];
+  var wi=0,ci=0,deleting=false;
+  var el=document.getElementById('typed');
+  function type(){
+    var w=words[wi];
+    if(!deleting){el.textContent=w.slice(0,++ci);if(ci===w.length){deleting=true;setTimeout(type,1400);return;}}
+    else{el.textContent=w.slice(0,--ci);if(ci===0){deleting=false;wi=(wi+1)%words.length;}}
     setTimeout(type,deleting?60:90);
   }
   type();
-
-  function toggleDark(){
-    const isLight=document.body.classList.toggle('light');
-    document.getElementById('themeBtn').textContent=isLight?'🌙':'☀️';
-  }
 </script>
 </body>
 </html>
