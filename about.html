@@ -4,144 +4,90 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>About — Anup Regmi</title>
+<script>if(sessionStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
-<script>if(sessionStorage.getItem('theme')==='light')document.documentElement.classList.add('light');</script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'DM Sans',sans-serif;background:#111;color:#F0F0F0;height:100vh;display:flex;flex-direction:column;overflow:hidden;transition:background .3s,color .3s}
-  nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;border-bottom:1px solid #1E1E1E;flex-shrink:0}
-  .logo{font-size:.95rem;font-weight:500;color:#F0F0F0;text-decoration:none}
+  :root{--bg:#111;--fg:#F0F0F0;--border:#1E1E1E;--muted:#444;--sub:#666;--card:#1A1A1A;--faint:#2A2A2A}
+  [data-theme="light"]{--bg:#fff;--fg:#111;--border:#EBEBEB;--muted:#999;--sub:#AAA;--card:#F5F5F5;--faint:#DDD}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);height:100vh;display:flex;flex-direction:column;overflow:hidden;transition:background .3s,color .3s}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;border-bottom:1px solid var(--border);flex-shrink:0}
+  .logo{font-size:.95rem;font-weight:500;color:var(--fg);text-decoration:none}
   .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
-  .nav-links a{font-size:.85rem;color:#444;text-decoration:none;transition:color .2s}
-  .nav-links a:hover,.nav-links a.active{color:#F0F0F0}
-  .toggle{background:none;border:1px solid #222;border-radius:50px;padding:.3rem .55rem;cursor:pointer;font-size:.85rem;transition:border-color .2s}
-  .toggle:hover{border-color:#555}
-
+  .nav-links a{font-size:.85rem;color:var(--muted);text-decoration:none;transition:color .2s}
+  .nav-links a:hover,.nav-links a.active{color:var(--fg)}
+  .toggle{background:none;border:1px solid var(--border);border-radius:50px;padding:.3rem .55rem;cursor:pointer;font-size:.85rem;transition:border-color .2s}
+  .toggle:hover{border-color:var(--muted)}
   .layout{display:flex;flex:1;overflow:hidden}
-  .sidemenu{width:180px;flex-shrink:0;border-right:1px solid #1E1E1E;padding:2.5rem 2rem;display:flex;flex-direction:column;gap:.2rem}
-  .sidemenu-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:#333;margin-bottom:1rem}
-  .smlink{font-size:.85rem;color:#444;padding:.5rem 0;display:flex;align-items:center;gap:.7rem;cursor:pointer;transition:color .2s;border:none;background:none;font-family:'DM Sans',sans-serif;text-align:left;width:100%}
-  .smlink:hover{color:#F0F0F0}
-  .smlink.active{color:#F0F0F0;font-weight:500}
+  .sidemenu{width:180px;flex-shrink:0;border-right:1px solid var(--border);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:.2rem}
+  .sidemenu-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:1rem}
+  .smlink{font-size:.85rem;color:var(--muted);padding:.5rem 0;display:flex;align-items:center;gap:.7rem;cursor:pointer;transition:color .2s;border:none;background:none;font-family:'DM Sans',sans-serif;text-align:left;width:100%}
+  .smlink:hover,.smlink.active{color:var(--fg)}
+  .smlink.active{font-weight:500}
   .smlink .dot{width:5px;height:5px;border-radius:50%;background:#E07B54;opacity:0;transition:opacity .2s;flex-shrink:0}
   .smlink.active .dot{opacity:1}
-
   .panels{flex:1;overflow:hidden;position:relative}
-  .panel{position:absolute;inset:0;padding:3rem 4rem;overflow-y:auto;opacity:0;transform:translateY(16px);transition:opacity .35s ease,transform .35s ease;pointer-events:none}
+  .panel{position:absolute;inset:0;padding:3rem 4rem;overflow-y:auto;opacity:0;transform:translateY(16px);transition:opacity .35s,transform .35s;pointer-events:none}
   .panel.active{opacity:1;transform:translateY(0);pointer-events:all}
-
-  .section-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:1rem}
-  h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,2.8vw,2.5rem);font-weight:400;line-height:1.2;color:#F0F0F0;margin-bottom:.4rem}
-  h1 i{font-style:italic;color:#444}
-  .tagline{font-size:.82rem;color:#555;margin-bottom:2rem}
-  .next-btn{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.8rem;font-size:.8rem;color:#444;cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;transition:color .2s;padding:0}
-  .next-btn:hover{color:#F0F0F0}
+  .section-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+  h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,2.8vw,2.5rem);font-weight:400;line-height:1.2;color:var(--fg);margin-bottom:.4rem}
+  h1 i{font-style:italic;color:var(--muted)}
+  .tagline{font-size:.82rem;color:var(--sub);margin-bottom:2rem}
+  .next-btn{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.8rem;font-size:.8rem;color:var(--muted);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;transition:color .2s;padding:0}
+  .next-btn:hover{color:var(--fg)}
   .next-btn:hover .arrow{transform:translateX(4px)}
   .arrow{transition:transform .2s;display:inline-block}
-
-  /* ME — two col */
   .me-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
-  .me-text p{font-size:.88rem;color:#777;line-height:2;margin-bottom:.9rem;font-weight:300}
-  .me-text p strong{font-weight:500;color:#F0F0F0}
-
-  /* TERMINAL */
-  .terminal{background:#0D0D0D;border:1px solid #1E1E1E;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
-  .term-bar{display:flex;gap:.5rem;padding:.8rem 1rem;border-bottom:1px solid #1A1A1A;align-items:center;flex-shrink:0}
+  .me-text p{font-size:.88rem;color:var(--sub);line-height:2;margin-bottom:.9rem;font-weight:300}
+  .me-text p strong{font-weight:500;color:var(--fg)}
+  .terminal{background:#0D0D0D;border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+  [data-theme="light"] .terminal{background:#F0F0F0}
+  .term-bar{display:flex;gap:.5rem;padding:.8rem 1rem;border-bottom:1px solid #1A1A1A;align-items:center}
+  [data-theme="light"] .term-bar{border-bottom-color:#DCDCDC}
   .term-bar:hover .term-dot span{opacity:1}
-  .term-dot{width:12px;height:12px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:default;flex-shrink:0}
+  .term-dot{width:12px;height:12px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:default}
   .term-dot span{opacity:0;font-size:9px;font-weight:900;transition:opacity .15s;user-select:none;color:#0009;line-height:1}
-  .term-body{padding:1rem 1.2rem;font-family:'Courier New',monospace;font-size:.76rem;line-height:1.85;flex:1;overflow-y:auto;min-height:200px;max-height:260px}
+  .term-body{padding:1rem 1.2rem;font-family:'Courier New',monospace;font-size:.76rem;line-height:1.85;overflow-y:auto;min-height:200px;max-height:260px}
   .term-line{display:block;word-break:break-all}
   .prompt{color:#E07B54}
-  .cmd{color:#F0F0F0}
-  .out{color:#555}
+  .cmd{color:var(--fg)}
+  .out{color:#666}
+  [data-theme="light"] .out{color:#888}
   .green{color:#4ADE80}
-  .term-input-row{display:flex;align-items:center;gap:6px;padding:.6rem 1.2rem;border-top:1px solid #1A1A1A;font-family:'Courier New',monospace;font-size:.76rem;flex-shrink:0}
-  #term-input{background:none;border:none;outline:none;color:#F0F0F0;font-family:'Courier New',monospace;font-size:.76rem;flex:1;caret-color:#E07B54}
-
-  /* EDUCATION */
+  .term-input-row{display:flex;align-items:center;gap:6px;padding:.6rem 1.2rem;border-top:1px solid #1A1A1A;font-family:'Courier New',monospace;font-size:.76rem}
+  [data-theme="light"] .term-input-row{border-top-color:#DCDCDC}
+  #term-input{background:none;border:none;outline:none;color:var(--fg);font-family:'Courier New',monospace;font-size:.76rem;flex:1;caret-color:#E07B54}
   .timeline{position:relative;padding-left:2rem;max-width:580px}
-  .timeline::before{content:'';position:absolute;left:0;top:.5rem;bottom:.5rem;width:1px;background:#1E1E1E}
+  .timeline::before{content:'';position:absolute;left:0;top:.5rem;bottom:.5rem;width:1px;background:var(--border)}
   .titem{position:relative;margin-bottom:2rem;cursor:pointer}
   .titem:last-child{margin-bottom:0}
-  .tdot{position:absolute;left:-2.35rem;top:.35rem;width:10px;height:10px;border-radius:50%;border:1px solid #333;background:#111;transition:border-color .3s,background .3s}
+  .tdot{position:absolute;left:-2.35rem;top:.35rem;width:10px;height:10px;border-radius:50%;border:1px solid var(--muted);background:var(--bg);transition:border-color .3s,background .3s}
   .titem.active .tdot,.titem:hover .tdot{border-color:#E07B54}
   .titem.active .tdot{background:#E07B54}
-  .tyear{font-size:.7rem;color:#444;letter-spacing:.08em;margin-bottom:.3rem;text-transform:uppercase}
-  .ttitle{font-size:.9rem;font-weight:500;color:#F0F0F0;margin-bottom:.2rem}
-  .tsub{font-size:.8rem;color:#555;margin-bottom:.4rem}
-  .tdesc{font-size:.82rem;color:#666;line-height:1.75;max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s;opacity:0}
+  .tyear{font-size:.7rem;color:var(--muted);letter-spacing:.08em;margin-bottom:.3rem;text-transform:uppercase}
+  .ttitle{font-size:.9rem;font-weight:500;color:var(--fg);margin-bottom:.2rem}
+  .tsub{font-size:.8rem;color:var(--sub);margin-bottom:.4rem}
+  .tdesc{font-size:.82rem;color:var(--sub);line-height:1.75;max-height:0;overflow:hidden;transition:max-height .4s,opacity .3s;opacity:0}
   .titem.active .tdesc{max-height:150px;opacity:1}
-
   .cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.7rem;max-width:620px;margin-top:1.8rem}
-  .cert-badge{border:1px solid #1E1E1E;border-radius:8px;padding:.9rem 1.1rem;transition:border-color .2s,transform .2s}
+  .cert-badge{border:1px solid var(--border);border-radius:8px;padding:.9rem 1.1rem;transition:border-color .2s,transform .2s}
   .cert-badge:hover{border-color:#E07B54;transform:translateY(-2px)}
-  .cert-name{font-size:.82rem;font-weight:500;color:#F0F0F0;margin-bottom:.2rem}
-  .cert-issuer{font-size:.72rem;color:#555}
-
-  /* EXPERIENCE */
+  .cert-name{font-size:.82rem;font-weight:500;color:var(--fg);margin-bottom:.2rem}
+  .cert-issuer{font-size:.72rem;color:var(--sub)}
   .exp-list{max-width:600px}
-  .exp{padding:1.5rem 0;border-bottom:1px solid #1A1A1A}
+  .exp{padding:1.5rem 0;border-bottom:1px solid var(--border)}
   .exp:first-child{padding-top:0}
   .exp:last-child{border-bottom:none}
   .exp-top{display:flex;justify-content:space-between;gap:1rem;margin-bottom:.25rem}
-  .exp-title{font-size:.9rem;font-weight:500;color:#F0F0F0}
-  .exp-date{font-size:.72rem;color:#444;white-space:nowrap}
-  .exp-company{font-size:.77rem;color:#555;margin-bottom:.8rem}
+  .exp-title{font-size:.9rem;font-weight:500;color:var(--fg)}
+  .exp-date{font-size:.72rem;color:var(--muted);white-space:nowrap}
+  .exp-company{font-size:.77rem;color:var(--sub);margin-bottom:.8rem}
   .exp-bullets{list-style:none;display:flex;flex-direction:column;gap:.5rem}
-  .exp-bullets li{font-size:.83rem;color:#777;line-height:1.75;font-weight:300;padding-left:1.1rem;position:relative}
-  .exp-bullets li::before{content:'—';position:absolute;left:0;color:#2A2A2A}
-  .exp-bullets li strong{color:#F0F0F0;font-weight:500}
-
-  /* LIGHT */
-  html.light body{background:#fff;color:#111}
-  html.light nav,html.light .sidemenu{border-color:#F0F0F0}
-  html.light .logo{color:#111}
-  html.light .nav-links a{color:#999}
-  html.light .nav-links a:hover,html.light .nav-links a.active{color:#111}
-  html.light .toggle{border-color:#E8E8E8}
-  html.light .sidemenu-label{color:#CCC}
-  html.light .smlink{color:#BBB}
-  html.light .smlink:hover,html.light .smlink.active{color:#111}
-  html.light h1{color:#111}
-  html.light h1 i{color:#AAA}
-  html.light .tagline{color:#BBB}
-  html.light .section-label{color:#CCC}
-  html.light .me-text p{color:#555}
-  html.light .me-text p strong{color:#111}
-  html.light .next-btn{color:#BBB}
-  html.light .next-btn:hover{color:#111}
-  html.light .terminal{background:#F7F7F7;border-color:#E8E8E8}
-  html.light .term-bar{border-bottom-color:#EBEBEB}
-  html.light .term-input-row{border-top-color:#EBEBEB}
-  html.light .out{color:#AAA}
-  html.light #term-input{color:#111}
-  html.light .cmd{color:#111}
-  html.light .prompt{color:#C0603A}
-  html.light .timeline::before{background:#F0F0F0}
-  html.light .tdot{border-color:#DDD;background:#fff}
-  html.light .ttitle{color:#111}
-  html.light .tsub{color:#AAA}
-  html.light .tdesc{color:#777}
-  html.light .tyear{color:#CCC}
-  html.light .cert-badge{border-color:#F0F0F0}
-  html.light .cert-name{color:#111}
-  html.light .cert-issuer{color:#AAA}
-  html.light .exp-title{color:#111}
-  html.light .exp-company{color:#AAA}
-  html.light .exp-date{color:#CCC}
-  html.light .exp-bullets li{color:#666}
-  html.light .exp-bullets li::before{color:#DDD}
-  html.light .exp-bullets li strong{color:#111}
-
-  @media(max-width:768px){
-    .me-grid{grid-template-columns:1fr}
-    .sidemenu{width:130px;padding:2rem 1.2rem}
-    .panel{padding:2rem 1.5rem}
-    nav{padding-left:1.5rem;padding-right:1.5rem}
-  }
+  .exp-bullets li{font-size:.83rem;color:var(--sub);line-height:1.75;font-weight:300;padding-left:1.1rem;position:relative}
+  .exp-bullets li::before{content:'—';position:absolute;left:0;color:var(--faint)}
+  .exp-bullets li strong{color:var(--fg);font-weight:500}
+  @media(max-width:768px){.me-grid{grid-template-columns:1fr}.sidemenu{width:130px;padding:2rem 1.2rem}.panel{padding:2rem 1.5rem}nav{padding-left:1.5rem;padding-right:1.5rem}}
 </style>
-<script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light');</script>
 </head>
 <body>
 <nav>
@@ -151,10 +97,9 @@
     <li><a href="projects.html">Projects</a></li>
     <li><a href="skills.html">Skills</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><button class="toggle" id="themeBtn" onclick="toggleDark()">☀️</button></li>
+    <li><button class="toggle" id="themeBtn" onclick="toggleTheme()">☀️</button></li>
   </ul>
 </nav>
-
 <div class="layout">
   <div class="sidemenu">
     <div class="sidemenu-label">About</div>
@@ -162,10 +107,7 @@
     <button class="smlink" onclick="show('education',this)"><span class="dot"></span>Education</button>
     <button class="smlink" onclick="show('experience',this)"><span class="dot"></span>Experience</button>
   </div>
-
   <div class="panels">
-
-    <!-- ME -->
     <div class="panel active" id="panel-me">
       <p class="section-label">About me</p>
       <h1>Hi, I'm Anup —<br><i>fresh grad, ready to work.</i></h1>
@@ -175,7 +117,7 @@
           <p>I recently completed my <strong>Bachelor of Information Technology</strong> at Victoria University and I'm currently in the IT Professional Year Program in Brisbane.</p>
           <p>I'm not picky about where I start — I care about <strong>learning fast, showing up, and doing good work.</strong> Whether it's a help desk ticket or a network issue, I'll figure it out.</p>
           <p>Outside of IT, I spent years as a pizza chef through my entire degree — high pressure, long hours, a team depending on me. Better preparation for IT support than people expect.</p>
-          <button class="next-btn" onclick="show('education', document.querySelectorAll('.smlink')[1])">See my education <span class="arrow">→</span></button>
+          <button class="next-btn" onclick="show('education',document.querySelectorAll('.smlink')[1])">See my education <span class="arrow">→</span></button>
         </div>
         <div class="terminal" onclick="document.getElementById('term-input').focus()">
           <div class="term-bar">
@@ -193,8 +135,6 @@
         </div>
       </div>
     </div>
-
-    <!-- EDUCATION -->
     <div class="panel" id="panel-education">
       <p class="section-label">Education</p>
       <h1>Where I <i>learned.</i></h1>
@@ -205,7 +145,7 @@
           <div class="tyear">Sep 2025 — Present</div>
           <div class="ttitle">IT Professional Year Program</div>
           <div class="tsub">ECA Professional Year, Melbourne</div>
-          <div class="tdesc">A structured program designed to bridge the gap between university and industry. Focused on professional skills, workplace communication, and practical IT experience in an Australian context.</div>
+          <div class="tdesc">A structured program bridging university and industry. Focused on professional skills, workplace communication, and practical IT experience in an Australian context.</div>
         </div>
         <div class="titem" onclick="toggleT(this)">
           <div class="tdot"></div>
@@ -223,64 +163,38 @@
         <div class="cert-badge"><div class="cert-name">Linux and SQL</div><div class="cert-issuer">Google · Nov 2025</div></div>
         <div class="cert-badge"><div class="cert-name">Foundations of Cybersecurity</div><div class="cert-issuer">Google · Oct 2025</div></div>
       </div>
-      <button class="next-btn" onclick="show('experience', document.querySelectorAll('.smlink')[2])">See my experience <span class="arrow">→</span></button>
+      <button class="next-btn" style="margin-top:2rem" onclick="show('experience',document.querySelectorAll('.smlink')[2])">See my experience <span class="arrow">→</span></button>
     </div>
-
-    <!-- EXPERIENCE -->
     <div class="panel" id="panel-experience">
       <p class="section-label">Experience</p>
       <h1>Where I <i>showed up.</i></h1>
       <p class="tagline">Work that shaped how I think and operate</p>
       <div class="exp-list">
         <div class="exp">
-          <div class="exp-top">
-            <div class="exp-title">IT Support Intern — Web Systems</div>
-            <div class="exp-date">Nov 2023 — Feb 2024</div>
-          </div>
+          <div class="exp-top"><div class="exp-title">IT Support Intern — Web Systems</div><div class="exp-date">Nov 2023 — Feb 2024</div></div>
           <div class="exp-company">Private Contractor, Melbourne</div>
           <ul class="exp-bullets">
-            <li>Diagnosed and resolved front-end performance bottlenecks, cutting website load times by <strong>60%</strong> through methodical asset profiling and optimisation.</li>
-            <li>Supported the end-to-end build and deployment of a responsive e-commerce website, collaborating directly with the client on requirements.</li>
-            <li>Implemented user-facing features using <strong>HTML, CSS, JavaScript and React</strong>, handling UI components and cross-browser compatibility.</li>
-            <li>Maintained version control via <strong>Git and GitHub</strong> throughout the project lifecycle.</li>
+            <li>Diagnosed and resolved front-end performance bottlenecks, cutting load times by <strong>60%</strong>.</li>
+            <li>Built and deployed a responsive e-commerce site from brief to launch.</li>
+            <li>Implemented features in <strong>HTML, CSS, JavaScript and React</strong>.</li>
+            <li>Managed version control via <strong>Git and GitHub</strong> throughout.</li>
           </ul>
         </div>
         <div class="exp">
-          <div class="exp-top">
-            <div class="exp-title">Pizza Chef (Part-time)</div>
-            <div class="exp-date">Jul 2023 — Jun 2026</div>
-          </div>
+          <div class="exp-top"><div class="exp-title">Pizza Chef (Part-time)</div><div class="exp-date">Jul 2023 — Jun 2026</div></div>
           <div class="exp-company">La Famiglia Italian Restaurant, Melbourne</div>
           <ul class="exp-bullets">
-            <li>Managed demanding kitchen shifts alongside a <strong>full-time IT degree</strong> for over two years — rare discipline at graduate level.</li>
-            <li>Operated in a fast-paced, high-volume environment where consistency and attention to detail were non-negotiable.</li>
-            <li>Built strong habits around <strong>communication, reliability, and keeping calm under pressure</strong> — exactly what's needed on a busy help desk.</li>
+            <li>Managed full shifts alongside a <strong>full-time IT degree</strong> for two years.</li>
+            <li>Operated under high-volume pressure where consistency was non-negotiable.</li>
+            <li>Built habits around <strong>communication, reliability, and calm under pressure.</strong></li>
           </ul>
         </div>
       </div>
     </div>
-
   </div>
 </div>
-
 <script>
-  function show(id, btn) {
-    document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
-    document.querySelectorAll('.smlink').forEach(function(b) { b.classList.remove('active'); });
-    document.getElementById('panel-' + id).classList.add('active');
-    if (btn) btn.classList.add('active');
-  }
-
-  function toggleT(el) {
-    var wasActive = el.classList.contains('active');
-    document.querySelectorAll('.titem').forEach(function(t) { t.classList.remove('active'); });
-    if (!wasActive) el.classList.add('active');
-  }
-
-  document.getElementById('themeBtn').textContent =
-    document.documentElement.getAttribute('data-theme')==='light' ? '🌙' : '☀️';
-
-  function toggleDark() {
+  function toggleTheme(){
     var isLight = document.documentElement.getAttribute('data-theme')==='light';
     if(isLight){
       document.documentElement.removeAttribute('data-theme');
@@ -292,47 +206,55 @@
       document.getElementById('themeBtn').textContent='🌙';
     }
   }
-
-  var commands = {
-    help:       'Commands: whoami · skills · experience · education · status · email · clear',
-    whoami:     'Anup Regmi — IT Graduate based in Brisbane, Australia.',
-    skills:     'Networking · DNS · DHCP · Active Directory\nVMware · Azure · Linux · Windows\nPython · JavaScript · Bash · SQL\nCybersecurity · EDR · Pen Testing',
-    experience: 'IT Support Intern — Private Contractor, Melbourne (2023-2024)\nPizza Chef — La Famiglia Restaurant, Melbourne (2023-2026)',
-    education:  'B. Information Technology — Victoria University (2022-2025)\nIT Professional Year — ECA, Melbourne (2025-Present)',
-    status:     '[ok] Open to work — seeking help desk & IT support roles in Brisbane',
-    email:      'anupme78@gmail.com'
+  if(document.documentElement.getAttribute('data-theme')==='light'){
+    document.getElementById('themeBtn').textContent='🌙';
+  }
+  function show(id,btn){
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+    document.querySelectorAll('.smlink').forEach(function(b){b.classList.remove('active');});
+    document.getElementById('panel-'+id).classList.add('active');
+    if(btn)btn.classList.add('active');
+  }
+  function toggleT(el){
+    var was=el.classList.contains('active');
+    document.querySelectorAll('.titem').forEach(function(t){t.classList.remove('active');});
+    if(!was)el.classList.add('active');
+  }
+  var commands={
+    help:'Commands: whoami · skills · experience · education · status · email · clear',
+    whoami:'Anup Regmi — IT Graduate based in Brisbane, Australia.',
+    skills:'Networking · DNS · DHCP · Active Directory\nVMware · Azure · Linux · Windows\nPython · JavaScript · Bash · SQL\nCybersecurity · EDR · Pen Testing',
+    experience:'IT Support Intern — Private Contractor, Melbourne (2023-2024)\nPizza Chef — La Famiglia Restaurant, Melbourne (2023-2026)',
+    education:'B. Information Technology — Victoria University (2022-2025)\nIT Professional Year — ECA, Melbourne (2025-Present)',
+    status:'[ok] Open to work — seeking help desk & IT support roles in Brisbane',
+    email:'anupme78@gmail.com'
   };
-
-  document.getElementById('term-input').addEventListener('keydown', function(e) {
-    if (e.key !== 'Enter') return;
-    var input = this.value.trim().toLowerCase();
-    var out = document.getElementById('term-output');
-
-    var cmdLine = document.createElement('div');
-    cmdLine.className = 'term-line';
-    cmdLine.innerHTML = '<span class="prompt">anup@portfolio:~$</span> <span class="cmd">' + this.value + '</span>';
+  document.getElementById('term-input').addEventListener('keydown',function(e){
+    if(e.key!=='Enter')return;
+    var input=this.value.trim().toLowerCase();
+    var out=document.getElementById('term-output');
+    var cmdLine=document.createElement('div');
+    cmdLine.className='term-line';
+    cmdLine.innerHTML='<span class="prompt">anup@portfolio:~$</span> <span class="cmd">'+this.value+'</span>';
     out.appendChild(cmdLine);
-
-    if (input === 'clear') {
-      out.innerHTML = '';
-    } else if (commands[input]) {
-      commands[input].split('\n').forEach(function(l) {
-        var r = document.createElement('div');
-        r.className = 'term-line';
-        r.innerHTML = '<span class="' + (l.startsWith('[ok]') ? 'green' : 'out') + '">' + l + '</span>';
+    if(input==='clear'){out.innerHTML='';}
+    else if(commands[input]){
+      commands[input].split('\n').forEach(function(l){
+        var r=document.createElement('div');
+        r.className='term-line';
+        r.innerHTML='<span class="'+(l.startsWith('[ok]')?'green':'out')+'">'+l+'</span>';
         out.appendChild(r);
       });
-    } else if (input !== '') {
-      var err = document.createElement('div');
-      err.className = 'term-line';
-      err.innerHTML = '<span class="out">not found: ' + this.value + ' — try <span class="green">help</span></span>';
+    } else if(input!==''){
+      var err=document.createElement('div');
+      err.className='term-line';
+      err.innerHTML='<span class="out">not found: '+this.value+' — try <span class="green">help</span></span>';
       out.appendChild(err);
     }
-    this.value = '';
-    out.scrollTop = out.scrollHeight;
+    this.value='';
+    out.scrollTop=out.scrollHeight;
   });
-
-  setTimeout(function() { document.getElementById('term-input').focus(); }, 400);
+  setTimeout(function(){document.getElementById('term-input').focus();},400);
 </script>
 </body>
 </html>
