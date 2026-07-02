@@ -4,27 +4,12 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Anup Regmi</title>
-<script>
-  // Run before anything renders
-  (function(){
-    if(sessionStorage.getItem('theme')==='light'){
-      document.documentElement.setAttribute('data-theme','light');
-    }
-  })();
-</script>
+<script>if(sessionStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-
-  :root{
-    --bg:#111;--fg:#F0F0F0;--border:#1E1E1E;--muted:#444;
-    --sub:#666;--card:#1A1A1A;--faint:#2A2A2A;
-  }
-  [data-theme="light"]{
-    --bg:#fff;--fg:#111;--border:#F0F0F0;--muted:#999;
-    --sub:#AAA;--card:#FAFAFA;--faint:#EBEBEB;
-  }
-
+  :root{--bg:#111;--fg:#F0F0F0;--border:#1E1E1E;--muted:#444;--sub:#666;--card:#1A1A1A}
+  [data-theme="light"]{--bg:#fff;--fg:#111;--border:#EBEBEB;--muted:#999;--sub:#AAA;--card:#F5F5F5}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;display:flex;flex-direction:column;transition:background .3s,color .3s}
   nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;border-bottom:1px solid var(--border)}
   .logo{font-size:.95rem;font-weight:500;color:var(--fg);text-decoration:none}
@@ -33,13 +18,11 @@
   .nav-links a:hover{color:var(--fg)}
   .toggle{background:none;border:1px solid var(--border);border-radius:50px;padding:.3rem .55rem;cursor:pointer;font-size:.85rem;transition:border-color .2s}
   .toggle:hover{border-color:var(--muted)}
-
   main{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0}
   .left{display:flex;flex-direction:column;justify-content:center;padding:4rem;border-right:1px solid var(--border)}
   .tag{font-size:.72rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.4rem}
   h1{font-family:'DM Serif Display',serif;font-size:clamp(2.4rem,4vw,3.4rem);font-weight:400;line-height:1.15;margin-bottom:1.4rem;color:var(--fg)}
   h1 i{font-style:italic;color:var(--muted)}
-  .typing-wrap{display:inline-block;min-width:220px}
   .typed{color:#E07B54;font-style:italic}
   .cursor{display:inline-block;width:2px;height:.85em;background:#E07B54;margin-left:2px;vertical-align:middle;animation:blink .7s infinite}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
@@ -48,13 +31,12 @@
   .cta{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:3rem}
   .cta a{font-size:.85rem;text-decoration:none;transition:all .2s}
   .btn-primary{background:var(--fg);color:var(--bg);padding:.65rem 1.6rem;border-radius:3px;font-weight:500}
-  .btn-primary:hover{opacity:.85}
+  .btn-primary:hover{opacity:.8}
   .btn-sec{color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:1px}
   .btn-sec:hover{color:var(--fg);border-color:var(--fg)}
   .pills{display:flex;flex-wrap:wrap;gap:.5rem}
   .pill{font-size:.72rem;color:var(--muted);border:1px solid var(--border);border-radius:50px;padding:.3rem .9rem;transition:border-color .2s,color .2s;cursor:default}
   .pill:hover{border-color:#E07B54;color:#E07B54}
-
   .right{display:flex;flex-direction:column;justify-content:center;padding:4rem}
   .right-label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem}
   .card{border:1px solid var(--border);border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:.8rem;transition:border-color .25s,transform .25s;position:relative;overflow:hidden}
@@ -66,15 +48,8 @@
   .card-date{font-size:.72rem;color:var(--muted)}
   .card-sub{font-size:.8rem;color:var(--sub)}
   .divider{width:100%;height:1px;background:var(--border);margin:1.5rem 0}
-
   footer{padding:1.5rem 4rem;font-size:.75rem;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--border)}
-
-  @media(max-width:768px){
-    main{grid-template-columns:1fr}
-    .left{border-right:none;border-bottom:1px solid var(--border);padding:2.5rem 1.8rem}
-    .right{padding:2.5rem 1.8rem}
-    nav,footer{padding-left:1.8rem;padding-right:1.8rem}
-  }
+  @media(max-width:768px){main{grid-template-columns:1fr}.left{border-right:none;border-bottom:1px solid var(--border);padding:2.5rem 1.8rem}.right{padding:2.5rem 1.8rem}nav,footer{padding-left:1.8rem;padding-right:1.8rem}}
 </style>
 </head>
 <body>
@@ -88,84 +63,39 @@
     <li><button class="toggle" id="themeBtn" onclick="toggleTheme()">☀️</button></li>
   </ul>
 </nav>
-
 <main>
   <div class="left">
     <p class="tag">Brisbane, Australia · Open to work</p>
-    <h1>Hi, I'm Anup.<br>I'm a <span class="typing-wrap"><span class="typed" id="typed"></span><span class="cursor"></span></span></h1>
+    <h1>Hi, I'm Anup.<br>I'm a <span class="typed" id="typed"></span><span class="cursor"></span></h1>
     <p class="bio">A recent IT grad with hands-on experience in <strong>networking, cybersecurity,</strong> and <strong>web systems.</strong> I'm eager, I learn fast, and I'm ready for my first full-time role.</p>
     <div class="cta">
-      <a href="projects.html" class="cta btn-primary">View my work</a>
-      <a href="contact.html" class="cta btn-sec">Get in touch</a>
-      <a href="https://linkedin.com/in/anup-regmi-49a605239" target="_blank" class="cta btn-sec">LinkedIn ↗</a>
+      <a href="projects.html" class="btn-primary">View my work</a>
+      <a href="contact.html" class="btn-sec">Get in touch</a>
+      <a href="https://linkedin.com/in/anup-regmi-49a605239" target="_blank" class="btn-sec">LinkedIn ↗</a>
     </div>
     <div class="pills">
-      <span class="pill">IT Support</span>
-      <span class="pill">Networking</span>
-      <span class="pill">Cybersecurity</span>
-      <span class="pill">Sysadmin</span>
-      <span class="pill">Help Desk</span>
-      <span class="pill">VMware</span>
-      <span class="pill">Active Directory</span>
-      <span class="pill">Python</span>
+      <span class="pill">IT Support</span><span class="pill">Networking</span><span class="pill">Cybersecurity</span>
+      <span class="pill">Sysadmin</span><span class="pill">Help Desk</span><span class="pill">VMware</span>
+      <span class="pill">Active Directory</span><span class="pill">Python</span>
     </div>
   </div>
-
   <div class="right">
     <div class="right-label">Snapshot</div>
-    <div class="card">
-      <div class="card-top">
-        <div class="card-title">IT Professional Year Program</div>
-        <div class="card-date">2025 — Present</div>
-      </div>
-      <div class="card-sub">ECA Professional Year, Melbourne</div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div class="card-title">Bachelor of Information Technology</div>
-        <div class="card-date">2022 — 2025</div>
-      </div>
-      <div class="card-sub">Victoria University, Melbourne</div>
-    </div>
+    <div class="card"><div class="card-top"><div class="card-title">IT Professional Year Program</div><div class="card-date">2025 — Present</div></div><div class="card-sub">ECA Professional Year, Melbourne</div></div>
+    <div class="card"><div class="card-top"><div class="card-title">Bachelor of Information Technology</div><div class="card-date">2022 — 2025</div></div><div class="card-sub">Victoria University, Melbourne</div></div>
     <div class="divider"></div>
-    <div class="card">
-      <div class="card-top">
-        <div class="card-title">IT Support Intern</div>
-        <div class="card-date">2023 — 2024</div>
-      </div>
-      <div class="card-sub">Web systems · HTML, CSS, JS, React · 60% load time improvement</div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div class="card-title">6 Certifications</div>
-        <div class="card-date">2025 — 2026</div>
-      </div>
-      <div class="card-sub">Google · Qualys · Security Blue Team · Skillsoft</div>
-    </div>
+    <div class="card"><div class="card-top"><div class="card-title">IT Support Intern</div><div class="card-date">2023 — 2024</div></div><div class="card-sub">Web systems · HTML, CSS, JS, React · 60% load time improvement</div></div>
+    <div class="card"><div class="card-top"><div class="card-title">6 Certifications</div><div class="card-date">2025 — 2026</div></div><div class="card-sub">Google · Qualys · Security Blue Team · Skillsoft</div></div>
     <div class="divider"></div>
-    <div class="card">
-      <div class="card-top">
-        <div class="card-title">Movie Recommendation System</div>
-        <div class="card-date">University Project</div>
-      </div>
-      <div class="card-sub">TMDB API · Python · Flask · Secure login & session management</div>
-    </div>
+    <div class="card"><div class="card-top"><div class="card-title">Movie Recommendation System</div><div class="card-date">University Project</div></div><div class="card-sub">TMDB API · Python · Flask · Secure login & session management</div></div>
   </div>
 </main>
-
-<footer>
-  <span>© 2026 Anup Regmi</span>
-  <span>anupme78@gmail.com</span>
-</footer>
-
+<footer><span>© 2026 Anup Regmi</span><span>anupme78@gmail.com</span></footer>
 <script>
-  // Set button icon on load
-  document.getElementById('themeBtn').textContent =
-    document.documentElement.getAttribute('data-theme')==='light' ? '🌙' : '☀️';
-
+  // Theme
   function toggleTheme(){
-    var isLight = document.documentElement.getAttribute('data-theme')==='light';
-    if(isLight){
+    var light = document.documentElement.getAttribute('data-theme')==='light';
+    if(light){
       document.documentElement.removeAttribute('data-theme');
       sessionStorage.setItem('theme','dark');
       document.getElementById('themeBtn').textContent='☀️';
@@ -175,16 +105,17 @@
       document.getElementById('themeBtn').textContent='🌙';
     }
   }
-
+  if(document.documentElement.getAttribute('data-theme')==='light'){
+    document.getElementById('themeBtn').textContent='🌙';
+  }
   // Typing
   var words=['IT Graduate.','Problem Solver.','Fast Learner.','Cybersecurity Enthusiast.','Network Enthusiast.','Detail-Oriented Worker.','Team Player.','Quick Learner.','Brisbane Local.'];
-  var wi=0,ci=0,deleting=false;
-  var el=document.getElementById('typed');
+  var wi=0,ci=0,del=false,el=document.getElementById('typed');
   function type(){
     var w=words[wi];
-    if(!deleting){el.textContent=w.slice(0,++ci);if(ci===w.length){deleting=true;setTimeout(type,1400);return;}}
-    else{el.textContent=w.slice(0,--ci);if(ci===0){deleting=false;wi=(wi+1)%words.length;}}
-    setTimeout(type,deleting?60:90);
+    if(!del){el.textContent=w.slice(0,++ci);if(ci===w.length){del=true;setTimeout(type,1400);return;}}
+    else{el.textContent=w.slice(0,--ci);if(ci===0){del=false;wi=(wi+1)%words.length;}}
+    setTimeout(type,del?60:90);
   }
   type();
 </script>
