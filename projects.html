@@ -26,21 +26,35 @@
   h1 i{font-style:italic;color:var(--muted)}
   .count{font-size:.82rem;color:var(--muted)}
 
+  /* GRID */
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
 
-  .card{border:1px solid var(--border);border-radius:12px;overflow:hidden;position:relative;cursor:default;transition:border-color .25s,transform .25s}
-  .card:hover{border-color:#E07B54;transform:translateY(-4px)}
+  /* CARD */
+  .card{
+    display:block;
+    text-decoration:none;
+    color:var(--fg);
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    background:var(--bg);
+    transition:opacity .3s ease, filter .3s ease, transform .3s ease, border-color .3s ease;
+  }
+  .grid:hover .card{opacity:.35;filter:blur(2px)}
+  .grid:hover .card:hover{opacity:1;filter:none;transform:translateY(-5px);border-color:#E07B54}
+
   .card-front{padding:2rem}
-  .card-num{font-family:'DM Serif Display',serif;font-size:3.5rem;color:var(--border);line-height:1;margin-bottom:1.2rem;transition:color .25s}
+  .card-num{font-family:'DM Serif Display',serif;font-size:3.5rem;color:var(--faint);line-height:1;margin-bottom:1.2rem}
   .card-title{font-size:1rem;font-weight:500;color:var(--fg);margin-bottom:.4rem}
   .card-sub{font-size:.82rem;color:var(--sub);line-height:1.6;margin-bottom:1.4rem}
   .card-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.6rem}
-  .tag{font-size:.68rem;padding:.25rem .65rem;border-radius:50px;border:1px solid var(--border);color:var(--muted)}
-  .card-desc{font-size:.83rem;color:var(--sub);line-height:1.8;max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .3s}
+  .tag{font-size:.68rem;padding:.25rem .65rem;border-radius:50px;border:1px solid var(--border);color:var(--muted);background:none}
+  .card-desc{font-size:.83rem;color:var(--sub);line-height:1.8;opacity:0;max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease}
   .card:hover .card-desc{max-height:200px;opacity:1}
+
   .card-footer{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;border-top:1px solid var(--border);background:var(--card)}
   .card-type{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-  .card-link{font-size:.75rem;color:#E07B54;text-decoration:none;opacity:0;transition:opacity .2s}
+  .card-link{font-size:.75rem;color:#E07B54;opacity:0;transition:opacity .2s}
   .card:hover .card-link{opacity:1}
 
   footer{padding:1.5rem 4rem;font-size:.75rem;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--border)}
@@ -87,25 +101,27 @@
           <span class="tag">Bash</span>
           <span class="tag">Windows Server</span>
         </div>
-        <div class="card-desc">Designed and configured a simulated enterprise network including Active Directory, DNS, DHCP, and file servers — mirroring real-world IT infrastructure. Deployed multiple VMs and automated lab setup with scripts, reducing deployment time by 30%.</div>
+        <div class="card-desc">Designed and configured a simulated enterprise network including Active Directory, DNS, DHCP, and file servers. Deployed multiple VMs and automated lab setup with scripts, reducing deployment time by 30%.</div>
       </div>
       <div class="card-footer">
         <span class="card-type">University Project · 2022 — 2023</span>
+        <span class="card-link">View project →</span>
       </div>
     </div>
 
     <a href="android-project.html" class="card">
       <div class="card-front">
         <div class="card-num">02</div>
-        <div class="card-title">Android Task Manager App</div>
-        <div class="card-sub">Mobile app with auth, real-time API & dependency injection</div>
+        <div class="card-title">Music Album Dashboard — Android</div>
+        <div class="card-sub">Mobile app with login, dashboard & album details using MVVM</div>
         <div class="card-tags">
           <span class="tag">Kotlin</span>
           <span class="tag">Android Studio</span>
           <span class="tag">Hilt</span>
+          <span class="tag">Retrofit</span>
           <span class="tag">REST API</span>
         </div>
-        <div class="card-desc">Built and debugged a mobile task management app with user authentication and real-time API integration. Reduced app crashes by 40% through Hilt-based dependency injection and thorough session handling.</div>
+        <div class="card-desc">Built an Android app with login screen, album dashboard and detail views. Reduced crashes by 40% using Hilt dependency injection and MVVM architecture with LiveData.</div>
       </div>
       <div class="card-footer">
         <span class="card-type">University Project · Sep — Oct 2023</span>
@@ -124,10 +140,11 @@
           <span class="tag">TMDB API</span>
           <span class="tag">SQL</span>
         </div>
-        <div class="card-desc">Integrated the TMDB API to retrieve and manage data for 1,000+ movies. Implemented secure login, session management, and user authentication — demonstrating real-world API connectivity and access control fundamentals.</div>
+        <div class="card-desc">Integrated the TMDB API to retrieve and manage data for 1,000+ movies. Implemented secure login, session management, and user authentication.</div>
       </div>
       <div class="card-footer">
         <span class="card-type">University Project · Feb 2023 — Nov 2024</span>
+        <span class="card-link">View project →</span>
       </div>
     </div>
 
@@ -142,10 +159,11 @@
           <span class="tag">React</span>
           <span class="tag">Git</span>
         </div>
-        <div class="card-desc">Built and deployed a fully responsive e-commerce website during my IT support internship. Improved load times by 60% through performance optimisation. Managed version control via GitHub and coordinated directly with the client on requirements.</div>
+        <div class="card-desc">Built and deployed a fully responsive e-commerce website during my IT support internship. Improved load times by 60% through performance optimisation.</div>
       </div>
       <div class="card-footer">
         <span class="card-type">Internship Project · 2023 — 2024</span>
+        <span class="card-link">View project →</span>
       </div>
     </div>
 
