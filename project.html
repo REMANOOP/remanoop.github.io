@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Projects — Anup Regmi</title>
+<script>if(sessionStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#18181B;--fg:#F0F0F0;--border:#27272A;--muted:#52525B;--sub:#71717A;--card:#27272A;--faint:#3F3F46}
+  [data-theme="light"]{--bg:#fff;--fg:#111;--border:#EBEBEB;--muted:#999;--sub:#AAA;--card:#F5F5F5;--faint:#DDD}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;display:flex;flex-direction:column;transition:background .3s,color .3s}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;border-bottom:1px solid var(--border)}
+  .logo{font-size:.95rem;font-weight:500;color:var(--fg);text-decoration:none}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+  .nav-links a{font-size:.85rem;color:var(--muted);text-decoration:none;transition:color .2s}
+  .nav-links a:hover,.nav-links a.active{color:var(--fg)}
+  .toggle{background:none;border:1px solid var(--border);border-radius:50px;padding:.3rem .55rem;cursor:pointer;font-size:.85rem;transition:border-color .2s}
+  .toggle:hover{border-color:var(--muted)}
+
+  main{flex:1;padding:4rem}
+  .page-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem}
+  .page-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
+  h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:400;color:var(--fg)}
+  h1 i{font-style:italic;color:var(--muted)}
+  .count{font-size:.82rem;color:var(--muted)}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
+
+  .card{border:1px solid var(--border);border-radius:12px;overflow:hidden;position:relative;cursor:default;transition:border-color .25s,transform .25s}
+  .card:hover{border-color:#E07B54;transform:translateY(-4px)}
+  .card-front{padding:2rem}
+  .card-num{font-family:'DM Serif Display',serif;font-size:3.5rem;color:var(--border);line-height:1;margin-bottom:1.2rem;transition:color .25s}
+  .card-title{font-size:1rem;font-weight:500;color:var(--fg);margin-bottom:.4rem}
+  .card-sub{font-size:.82rem;color:var(--sub);line-height:1.6;margin-bottom:1.4rem}
+  .card-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.6rem}
+  .tag{font-size:.68rem;padding:.25rem .65rem;border-radius:50px;border:1px solid var(--border);color:var(--muted)}
+  .card-desc{font-size:.83rem;color:var(--sub);line-height:1.8;max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .3s}
+  .card:hover .card-desc{max-height:200px;opacity:1}
+  .card-footer{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;border-top:1px solid var(--border);background:var(--card)}
+  .card-type{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .card-link{font-size:.75rem;color:#E07B54;text-decoration:none;opacity:0;transition:opacity .2s}
+  .card:hover .card-link{opacity:1}
+
+  footer{padding:1.5rem 4rem;font-size:.75rem;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--border)}
+
+  @media(max-width:768px){
+    .grid{grid-template-columns:1fr}
+    main,nav,footer{padding-left:1.8rem;padding-right:1.8rem}
+    main{padding-top:2.5rem;padding-bottom:2.5rem}
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">Anup Regmi</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><button class="toggle" id="themeBtn" onclick="toggleTheme()">☀️</button></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="page-top">
+    <div>
+      <p class="page-label">My work</p>
+      <h1>Things I've <i>built.</i></h1>
+    </div>
+    <div class="count">4 projects</div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-front">
+        <div class="card-num">01</div>
+        <div class="card-title">Enterprise Network Simulation</div>
+        <div class="card-sub">Simulated a full corporate IT environment from scratch</div>
+        <div class="card-tags">
+          <span class="tag">VMware</span>
+          <span class="tag">Active Directory</span>
+          <span class="tag">DNS / DHCP</span>
+          <span class="tag">Bash</span>
+          <span class="tag">Windows Server</span>
+        </div>
+        <div class="card-desc">Designed and configured a simulated enterprise network including Active Directory, DNS, DHCP, and file servers — mirroring real-world IT infrastructure. Deployed multiple VMs and automated lab setup with scripts, reducing deployment time by 30%.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-type">University Project · 2022 — 2023</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-front">
+        <div class="card-num">02</div>
+        <div class="card-title">Android Task Manager App</div>
+        <div class="card-sub">Mobile app with auth, real-time API & dependency injection</div>
+        <div class="card-tags">
+          <span class="tag">Kotlin</span>
+          <span class="tag">Android Studio</span>
+          <span class="tag">Hilt</span>
+          <span class="tag">REST API</span>
+        </div>
+        <div class="card-desc">Built and debugged a mobile task management app with user authentication and real-time API integration. Reduced app crashes by 40% through Hilt-based dependency injection and thorough session handling.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-type">University Project · Sep — Oct 2023</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-front">
+        <div class="card-num">03</div>
+        <div class="card-title">Movie Recommendation System</div>
+        <div class="card-sub">Full-stack app with third-party API and secure authentication</div>
+        <div class="card-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Flask</span>
+          <span class="tag">TMDB API</span>
+          <span class="tag">SQL</span>
+        </div>
+        <div class="card-desc">Integrated the TMDB API to retrieve and manage data for 1,000+ movies. Implemented secure login, session management, and user authentication — demonstrating real-world API connectivity and access control fundamentals.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-type">University Project · Feb 2023 — Nov 2024</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-front">
+        <div class="card-num">04</div>
+        <div class="card-title">E-Commerce Website</div>
+        <div class="card-sub">Responsive site built and deployed for a real client</div>
+        <div class="card-tags">
+          <span class="tag">HTML / CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">React</span>
+          <span class="tag">Git</span>
+        </div>
+        <div class="card-desc">Built and deployed a fully responsive e-commerce website during my IT support internship. Improved load times by 60% through performance optimisation. Managed version control via GitHub and coordinated directly with the client on requirements.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-type">Internship Project · 2023 — 2024</span>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <span>© 2026 Anup Regmi</span>
+  <span>anupme78@gmail.com</span>
+</footer>
+
+<script>
+  if(document.documentElement.getAttribute('data-theme')==='light'){
+    document.getElementById('themeBtn').textContent='🌙';
+  }
+  function toggleTheme(){
+    var isLight=document.documentElement.getAttribute('data-theme')==='light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      sessionStorage.setItem('theme','dark');
+      document.getElementById('themeBtn').textContent='☀️';
+    } else {
+      document.documentElement.setAttribute('data-theme','light');
+      sessionStorage.setItem('theme','light');
+      document.getElementById('themeBtn').textContent='🌙';
+    }
+  }
+</script>
+</body>
+</html>
