@@ -189,7 +189,7 @@
                 <div class="exp-title">IT Support Engineer — Internship</div>
                 <div class="exp-company">Sydney Business & Travel Academy (SBTA), Sydney</div>
               </div>
-              <div class="exp-date">2024-Present</div>
+              <div class="exp-date">2024</div>
             </div>
             <div class="exp-body">
               <ul class="exp-bullets">
@@ -274,6 +274,12 @@
   function toggleExp(el){
     var was=el.classList.contains('active');
     document.querySelectorAll('.exp-item').forEach(function(e){e.classList.remove('active');});
+    if(!was)el.classList.add('active');
+  }
+
+  function toggleT(el){
+    var was=el.classList.contains('active');
+    document.querySelectorAll('.titem').forEach(function(t){t.classList.remove('active');});
     if(!was)el.classList.add('active');
   }
   var commands={
