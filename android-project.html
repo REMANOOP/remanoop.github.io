@@ -22,10 +22,6 @@
 
   main{flex:1;padding:3.5rem 4rem;max-width:1000px;margin:0 auto;width:100%}
 
-  /* BACK */
-  .back{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--muted);text-decoration:none;margin-bottom:2.5rem;transition:color .2s;border:1px solid var(--border);padding:.5rem 1rem;border-radius:50px}
-  .back:hover{color:var(--fg);border-color:var(--muted)}
-
   /* HEADER */
   .project-meta{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
   h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;color:var(--fg);margin-bottom:.6rem;line-height:1.2}
@@ -38,24 +34,19 @@
   .carousel-wrap{margin-bottom:3.5rem}
   .carousel{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
   .slides{display:flex;transition:transform .4s ease}
-  .slide{min-width:100%;height:440px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-  .slide img{width:100%;height:100%;object-fit:contain;background:var(--card)}
+  .slide{min-width:100%;height:460px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .slide img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
 
-  .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:var(--bg);border:1px solid var(--border);color:var(--fg);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;z-index:2}
-  .carousel-btn:hover{border-color:#E07B54;color:#E07B54}
+  .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;z-index:2}
+  .carousel-btn:hover{background:rgba(224,123,84,.8);border-color:#E07B54}
   .btn-prev{left:1rem}
   .btn-next{right:1rem}
 
-  .carousel-footer{display:flex;justify-content:space-between;align-items:center;margin-top:1rem}
-  .dots{display:flex;gap:.5rem}
-  .dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .2s}
-  .dot.active{background:#E07B54}
-  .slide-count{font-size:.75rem;color:var(--muted)}
-
-  .thumbs{display:flex;gap:.6rem;margin-top:.8rem;overflow-x:auto;padding-bottom:.3rem}
-  .thumb{width:80px;height:56px;border-radius:6px;border:2px solid var(--border);overflow:hidden;cursor:pointer;flex-shrink:0;transition:border-color .2s}
-  .thumb.active{border-color:#E07B54}
-  .thumb img{width:100%;height:100%;object-fit:cover}
+  .carousel-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding:0 .2rem}
+  .dots{display:flex;gap:.5rem;align-items:center}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .2s,width .2s;border:none;padding:0}
+  .dot.active{background:#E07B54;width:18px;border-radius:3px}
+  .slide-count{font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
 
   /* CONTENT */
   .content-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:3.5rem;margin-bottom:3rem}
@@ -76,9 +67,9 @@
   /* BOTTOM NAV */
   .bottom-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid var(--border)}
   .bottom-btn{display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:.6rem 1.4rem;border-radius:50px;transition:all .2s}
-  .bottom-btn:hover{border-color:#E07B54;color:#E07B54}
+  .bottom-btn:hover{border-color:var(--muted);color:var(--fg)}
   .bottom-btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-  .bottom-btn.primary:hover{opacity:.8;color:var(--bg)}
+  .bottom-btn.primary:hover{opacity:.8}
 
   footer{padding:1.5rem 4rem;font-size:.75rem;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--border)}
 
@@ -86,7 +77,7 @@
     main,nav,footer{padding-left:1.8rem;padding-right:1.8rem}
     main{padding-top:2rem;padding-bottom:2rem}
     .content-grid{grid-template-columns:1fr}
-    .slide{height:260px}
+    .slide{height:300px}
   }
 </style>
 </head>
@@ -103,8 +94,6 @@
 </nav>
 
 <main>
-  <a href="projects.html" class="back">← Back to projects</a>
-
   <div class="project-meta">University Project · Sep — Oct 2023</div>
   <h1>Music Album <i>Dashboard</i></h1>
   <p class="project-sub">An Android application with login, album dashboard and detail views — built with MVVM architecture, Retrofit and Hilt dependency injection.</p>
@@ -123,20 +112,19 @@
   <div class="carousel-wrap">
     <div class="carousel">
       <div class="slides" id="slides">
-        <div class="slide"><img src="images/1.3.jpg" alt="Login Screen"/></div>
-        <div class="slide"><img src="images/1.1.jpg" alt="Dashboard"/></div>
-        <div class="slide"><img src="images/1.2.jpg" alt="Album Details"/></div>
-        <div class="slide"><img src="images/1.4.jpg" alt="API Response"/></div>
-        <div class="slide"><img src="images/1.5.jpg" alt="Architecture"/></div>
+        <div class="slide"><img src="images/1.1.png" alt="Login Screen"/></div>
+        <div class="slide"><img src="images/1.2.png" alt="Dashboard"/></div>
+        <div class="slide"><img src="images/1.3.png" alt="Album Details"/></div>
+        <div class="slide"><img src="images/1.4.png" alt="App View"/></div>
+        <div class="slide"><img src="images/1.5.png" alt="App View"/></div>
       </div>
       <button class="carousel-btn btn-prev" onclick="move(-1)">←</button>
       <button class="carousel-btn btn-next" onclick="move(1)">→</button>
     </div>
-    <div class="carousel-footer">
+    <div class="carousel-bottom">
       <div class="dots" id="dots"></div>
       <div class="slide-count" id="slideCount">1 / 5</div>
     </div>
-    <div class="thumbs" id="thumbs"></div>
   </div>
 
   <!-- CONTENT -->
@@ -145,7 +133,7 @@
       <p class="section-label">About the project</p>
       <p>A fully functional <strong>Android application</strong> built for a university assessment, showcasing a dashboard of music albums with details such as artist name, album title, release year, and genre.</p>
       <p>Users authenticate through a <strong>login screen</strong> before accessing the dashboard. Album data is fetched from a remote API using <strong>Retrofit</strong>, with <strong>Hilt</strong> handling all dependency injection throughout the app.</p>
-      <p>The project follows <strong>MVVM architecture</strong>, keeping business logic clean and separated from the UI using ViewModels and LiveData for reactive data updates. Crash rate was reduced by <strong>40%</strong> through proper session handling and DI.</p>
+      <p>The project follows <strong>MVVM architecture</strong>, keeping business logic clean and separated from the UI using ViewModels and LiveData for reactive updates. Crash rate reduced by <strong>40%</strong> through proper session handling and DI.</p>
     </div>
 
     <div>
@@ -159,7 +147,6 @@
         <li><strong>Retrofit</strong> — handles all network requests</li>
         <li><strong>LiveData</strong> — reactive UI updates</li>
       </ul>
-
       <div class="meta-grid">
         <div class="meta-item"><div class="meta-label">Type</div><div class="meta-val">University Project</div></div>
         <div class="meta-item"><div class="meta-label">Platform</div><div class="meta-val">Android</div></div>
@@ -183,26 +170,16 @@
 
 <script>
   var cur=0,total=5;
-  var labels=['Login Screen','Dashboard','Album Details','API Response','Architecture'];
-  var imgPaths=['images/1.1.png','images/1.2.png','images/1.3.png','images/1.4.png','images/1.5.png'];
   var slidesEl=document.getElementById('slides');
   var dotsEl=document.getElementById('dots');
-  var thumbsEl=document.getElementById('thumbs');
   var countEl=document.getElementById('slideCount');
 
   for(var i=0;i<total;i++){
-    var d=document.createElement('div');
+    var d=document.createElement('button');
     d.className='dot'+(i===0?' active':'');
     d.setAttribute('data-i',i);
     d.onclick=function(){goTo(+this.getAttribute('data-i'));};
     dotsEl.appendChild(d);
-
-    var t=document.createElement('div');
-    t.className='thumb'+(i===0?' active':'');
-    t.setAttribute('data-i',i);
-    t.innerHTML='<img src="'+imgPaths[i]+'" alt="'+labels[i]+'"/>';
-    t.onclick=function(){goTo(+this.getAttribute('data-i'));};
-    thumbsEl.appendChild(t);
   }
 
   function goTo(n){
@@ -210,18 +187,15 @@
     slidesEl.style.transform='translateX(-'+cur*100+'%)';
     countEl.textContent=(cur+1)+' / '+total;
     document.querySelectorAll('.dot').forEach(function(d,i){d.classList.toggle('active',i===cur);});
-    document.querySelectorAll('.thumb').forEach(function(t,i){t.classList.toggle('active',i===cur);});
   }
 
   function move(dir){goTo((cur+dir+total)%total);}
 
-  // Keyboard nav
   document.addEventListener('keydown',function(e){
     if(e.key==='ArrowLeft')move(-1);
     if(e.key==='ArrowRight')move(1);
   });
 
-  // Theme
   if(document.documentElement.getAttribute('data-theme')==='light'){
     document.getElementById('themeBtn').textContent='🌙';
   }
