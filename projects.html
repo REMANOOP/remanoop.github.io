@@ -26,10 +26,8 @@
   h1 i{font-style:italic;color:var(--muted)}
   .count{font-size:.82rem;color:var(--muted)}
 
-  /* GRID */
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;grid-auto-rows:1fr}
 
-  /* CARD */
   .card{
     display:block;
     text-decoration:none;
@@ -38,7 +36,7 @@
     border-radius:12px;
     overflow:hidden;
     background:var(--bg);
-    transition:opacity .3s ease, filter .3s ease, transform .3s ease, border-color .3s ease;
+    transition:opacity .3s ease,filter .3s ease,transform .3s ease,border-color .3s ease;
   }
   .grid:hover .card{opacity:.35;filter:blur(2px)}
   .grid:hover .card:hover{opacity:1;filter:none;transform:translateY(-5px);border-color:#E07B54}
@@ -84,34 +82,15 @@
       <p class="page-label">My work</p>
       <h1>Things I've <i>built.</i></h1>
     </div>
-    <div class="count">4 projects</div>
+    <div class="count">3 projects</div>
   </div>
 
   <div class="grid">
 
-    <div class="card">
-      <div class="card-front">
-        <div class="card-num">01</div>
-        <div class="card-title">Enterprise Network Simulation</div>
-        <div class="card-sub">Simulated a full corporate IT environment from scratch</div>
-        <div class="card-tags">
-          <span class="tag">VMware</span>
-          <span class="tag">Active Directory</span>
-          <span class="tag">DNS / DHCP</span>
-          <span class="tag">Bash</span>
-          <span class="tag">Windows Server</span>
-        </div>
-        <div class="card-desc">Designed and configured a simulated enterprise network including Active Directory, DNS, DHCP, and file servers. Deployed multiple VMs and automated lab setup with scripts, reducing deployment time by 30%.</div>
-      </div>
-      <div class="card-footer">
-        <span class="card-type">University Project · 2022 — 2023</span>
-        <span class="card-link">View project →</span>
-      </div>
-    </div>
-
+    <!-- 01 -->
     <a href="android-project.html" class="card">
       <div class="card-front">
-        <div class="card-num">02</div>
+        <div class="card-num">01</div>
         <div class="card-title">Music Album Dashboard — Android</div>
         <div class="card-sub">Mobile app with login, dashboard & album details using MVVM</div>
         <div class="card-tags">
@@ -129,9 +108,10 @@
       </div>
     </a>
 
+    <!-- 02 -->
     <div class="card">
       <div class="card-front">
-        <div class="card-num">03</div>
+        <div class="card-num">02</div>
         <div class="card-title">Movie Recommendation System</div>
         <div class="card-sub">Full-stack app with third-party API and secure authentication</div>
         <div class="card-tags">
@@ -148,22 +128,37 @@
       </div>
     </div>
 
+    <!-- 03 -->
     <div class="card">
       <div class="card-front">
-        <div class="card-num">04</div>
-        <div class="card-title">E-Commerce Website</div>
-        <div class="card-sub">Responsive site built and deployed for a real client</div>
+        <div class="card-num">03</div>
+        <div class="card-title">Recipe Maker Website</div>
+        <div class="card-sub">AI-powered recipe generator — personal project</div>
         <div class="card-tags">
           <span class="tag">HTML / CSS</span>
           <span class="tag">JavaScript</span>
-          <span class="tag">React</span>
-          <span class="tag">Git</span>
+          <span class="tag">AI Integration</span>
         </div>
-        <div class="card-desc">Built and deployed a fully responsive e-commerce website during my IT support internship. Improved load times by 60% through performance optimisation.</div>
+        <div class="card-desc">A personal project — a recipe maker website with AI-powered suggestions. Built to explore front-end development and API integration outside of university work.</div>
       </div>
       <div class="card-footer">
-        <span class="card-type">Internship Project · 2023 — 2024</span>
+        <span class="card-type">Personal Project</span>
         <span class="card-link">View project →</span>
+      </div>
+    </div>
+
+    <!-- 04 coming soon -->
+    <div class="card">
+      <div class="card-front">
+        <div class="card-title">More coming soon</div>
+        <div class="card-sub">Always building — check back for new projects</div>
+        <div class="card-tags">
+          <span class="tag">In progress</span>
+        </div>
+        <div class="card-desc">Currently working on more projects to showcase here. Stay tuned.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-type">Coming soon</span>
       </div>
     </div>
 
