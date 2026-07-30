@@ -11,6 +11,7 @@
   :root{--bg:#18181B;--fg:#F0F0F0;--border:#27272A;--muted:#52525B;--sub:#71717A;--card:#27272A;--faint:#3F3F46}
   [data-theme="light"]{--bg:#fff;--fg:#111;--border:#EBEBEB;--muted:#999;--sub:#AAA;--card:#F5F5F5;--faint:#DDD}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;display:flex;flex-direction:column;transition:background .3s,color .3s}
+
   nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;border-bottom:1px solid var(--border)}
   .logo{font-size:.95rem;font-weight:500;color:var(--fg);text-decoration:none}
   .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
@@ -26,38 +27,41 @@
   h1 i{font-style:italic;color:var(--muted)}
   .count{font-size:.82rem;color:var(--muted)}
 
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;grid-auto-rows:1fr}
+  /* GRID */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
 
+  /* CARD */
   .card{
-    display:block;
     text-decoration:none;
     color:var(--fg);
     border:1px solid var(--border);
     border-radius:12px;
     overflow:hidden;
     background:var(--bg);
-    transition:opacity .3s ease,filter .3s ease,transform .3s ease,border-color .3s ease;
+    display:flex;
+    flex-direction:column;
+    transition:opacity .3s,filter .3s,transform .3s,border-color .3s;
   }
   .grid:hover .card{opacity:.35;filter:blur(2px)}
   .grid:hover .card:hover{opacity:1;filter:none;transform:translateY(-5px);border-color:#E07B54}
 
-  .card-front{padding:2rem}
+  .card-front{padding:2rem;flex:1;display:flex;flex-direction:column}
   .card-num{font-family:'DM Serif Display',serif;font-size:3.5rem;color:var(--faint);line-height:1;margin-bottom:1.2rem}
   .card-title{font-size:1rem;font-weight:500;color:var(--fg);margin-bottom:.4rem}
   .card-sub{font-size:.82rem;color:var(--sub);line-height:1.6;margin-bottom:1.4rem}
-  .card-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.6rem}
+  .card-tags{display:flex;flex-wrap:wrap;gap:.4rem}
   .tag{font-size:.68rem;padding:.25rem .65rem;border-radius:50px;border:1px solid var(--border);color:var(--muted);background:none}
-  .card-desc{font-size:.83rem;color:var(--sub);line-height:1.8;opacity:0;max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease}
+  .card-desc{font-size:.83rem;color:var(--sub);line-height:1.8;opacity:0;max-height:0;overflow:hidden;transition:max-height .4s,opacity .3s;margin-top:1.2rem}
   .card:hover .card-desc{max-height:200px;opacity:1}
 
-  .card-footer{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;border-top:1px solid var(--border);background:var(--card);margin-top:auto}
+  .card-footer{padding:1rem 2rem;border-top:1px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
   .card-type{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
   .card-link{font-size:.75rem;color:#E07B54;opacity:0;transition:opacity .2s}
   .card:hover .card-link{opacity:1}
 
   footer{padding:1.5rem 4rem;font-size:.75rem;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--border)}
 
-  @media(max-width:768px){
+  @media(max-width:700px){
     .grid{grid-template-columns:1fr}
     main,nav,footer{padding-left:1.8rem;padding-right:1.8rem}
     main{padding-top:2.5rem;padding-bottom:2.5rem}
@@ -87,7 +91,6 @@
 
   <div class="grid">
 
-    <!-- 01 -->
     <a href="android-project.html" class="card">
       <div class="card-front">
         <div class="card-num">01</div>
@@ -108,7 +111,6 @@
       </div>
     </a>
 
-    <!-- 02 -->
     <div class="card">
       <div class="card-front">
         <div class="card-num">02</div>
@@ -128,7 +130,6 @@
       </div>
     </div>
 
-    <!-- 03 -->
     <div class="card">
       <div class="card-front">
         <div class="card-num">03</div>
@@ -147,16 +148,13 @@
       </div>
     </div>
 
-    <!-- 04 coming soon -->
-    <div class="card" style="display:flex;flex-direction:column">
-      <div class="card-front" style="flex:1;display:flex;flex-direction:column;justify-content:space-between">
-        <div>
-          <div class="card-num" style="visibility:hidden">00</div>
-          <div class="card-title">More coming soon</div>
-          <div class="card-sub">Always building — check back for new projects</div>
-          <div class="card-tags">
-            <span class="tag">In progress</span>
-          </div>
+    <div class="card">
+      <div class="card-front">
+        <div class="card-num" style="visibility:hidden">00</div>
+        <div class="card-title">More coming soon</div>
+        <div class="card-sub">Always building — check back for new projects</div>
+        <div class="card-tags">
+          <span class="tag">In progress</span>
         </div>
       </div>
       <div class="card-footer">
