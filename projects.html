@@ -27,21 +27,9 @@
   h1 i{font-style:italic;color:var(--muted)}
   .count{font-size:.82rem;color:var(--muted)}
 
-  /* GRID */
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
 
-  /* CARD */
-  .card{
-    text-decoration:none;
-    color:var(--fg);
-    border:1px solid var(--border);
-    border-radius:12px;
-    overflow:hidden;
-    background:var(--bg);
-    display:flex;
-    flex-direction:column;
-    transition:opacity .3s,filter .3s,transform .3s,border-color .3s;
-  }
+  .card{text-decoration:none;color:var(--fg);border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg);display:flex;flex-direction:column;transition:opacity .3s,filter .3s,transform .3s,border-color .3s}
   .grid:hover .card{opacity:.35;filter:blur(2px)}
   .grid:hover .card:hover{opacity:1;filter:none;transform:translateY(-5px);border-color:#E07B54}
 
@@ -111,7 +99,7 @@
       </div>
     </a>
 
-    <div class="card">
+    <a href="movie-project.html" class="card">
       <div class="card-front">
         <div class="card-num">02</div>
         <div class="card-title">Movie Recommendation System</div>
@@ -128,9 +116,9 @@
         <span class="card-type">University Project · Feb 2023 — Nov 2024</span>
         <span class="card-link">View project →</span>
       </div>
-    </div>
+    </a>
 
-    <div class="card">
+    <a href="recipe-project.html" class="card">
       <div class="card-front">
         <div class="card-num">03</div>
         <div class="card-title">Recipe Maker Website</div>
@@ -146,7 +134,7 @@
         <span class="card-type">Personal Project</span>
         <span class="card-link">View project →</span>
       </div>
-    </div>
+    </a>
 
     <div class="card">
       <div class="card-front">
