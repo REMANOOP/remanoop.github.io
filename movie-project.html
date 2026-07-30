@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Movie Recs — Anup Regmi</title>
+<script>if(sessionStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#18181B;--fg:#F0F0F0;--border:#27272A;--muted:#52525B;--sub:#71717A;--card:#27272A;--faint:#3F3F46}
+  [data-theme="light"]{--bg:#fff;--fg:#111;--border:#EBEBEB;--muted:#999;--sub:#AAA;--card:#F5F5F5;--faint:#DDD}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;display:flex;flex-direction:column;transition:background .3s,color .3s}
+
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;border-bottom:1px solid var(--border)}
+  .logo{font-size:.95rem;font-weight:500;color:var(--fg);text-decoration:none}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+  .nav-links a{font-size:.85rem;color:var(--muted);text-decoration:none;transition:color .2s}
+  .nav-links a:hover,.nav-links a.active{color:var(--fg)}
+  .toggle{background:none;border:1px solid var(--border);border-radius:50px;padding:.3rem .55rem;cursor:pointer;font-size:.85rem;transition:border-color .2s}
+  .toggle:hover{border-color:var(--muted)}
+
+  main{flex:1;padding:3.5rem 4rem;max-width:1000px;margin:0 auto;width:100%}
+
+  .project-meta{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
+  h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;color:var(--fg);margin-bottom:.6rem;line-height:1.2}
+  h1 i{font-style:italic;color:var(--muted)}
+  .project-sub{font-size:.92rem;color:var(--sub);margin-bottom:1.6rem;line-height:1.7}
+  .tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:3rem}
+  .tag{font-size:.72rem;padding:.3rem .8rem;border-radius:50px;border:1px solid var(--border);color:var(--muted)}
+
+  /* CAROUSEL */
+  .carousel-wrap{margin-bottom:3.5rem}
+  .carousel{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
+  .slides{display:flex;transition:transform .4s ease}
+  .slide{min-width:100%;height:460px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--card)}
+  .slide img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+  .slide-label{position:absolute;bottom:1rem;left:1.4rem;font-size:.7rem;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase}
+
+  .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:2}
+  .carousel-btn:hover{background:rgba(224,123,84,.8)}
+  .btn-prev{left:.8rem}
+  .btn-next{right:.8rem}
+  .carousel-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:.8rem}
+  .dots{display:flex;gap:.5rem;align-items:center}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .2s,width .2s;border:none;padding:0}
+  .dot.active{background:#E07B54;width:18px;border-radius:3px}
+  .slide-count{font-size:.75rem;color:var(--muted)}
+
+  /* CONTENT */
+  .content-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:3.5rem;margin-bottom:3rem}
+  .section-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem}
+  .desc p{font-size:.9rem;color:var(--sub);line-height:1.95;margin-bottom:.9rem;font-weight:300}
+  .desc p strong{color:var(--fg);font-weight:500}
+
+  .features{list-style:none;display:flex;flex-direction:column}
+  .feature-item{display:flex;align-items:flex-start;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--border)}
+  .feature-item:last-child{border-bottom:none}
+  .feature-num{font-size:.68rem;color:#E07B54;font-weight:600;letter-spacing:.06em;flex-shrink:0;padding-top:.1rem;width:20px}
+  .feature-text{font-size:.85rem;color:var(--sub);line-height:1.6}
+  .feature-text strong{color:var(--fg);font-weight:500}
+
+  .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:2rem}
+  .meta-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.9rem 1rem}
+  .meta-label{font-size:.65rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem}
+  .meta-val{font-size:.85rem;color:var(--fg);font-weight:500}
+
+  .bottom-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid var(--border)}
+  .bottom-btn{display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:.6rem 1.4rem;border-radius:50px;transition:all .2s}
+  .bottom-btn:hover{border-color:var(--muted);color:var(--fg)}
+  .bottom-btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+  .bottom-btn.primary:hover{opacity:.8}
+
+  footer{padding:1.5rem 4rem;font-size:.75rem;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--border)}
+
+  @media(max-width:768px){
+    main,nav,footer{padding-left:1.8rem;padding-right:1.8rem}
+    main{padding-top:2rem;padding-bottom:2rem}
+    .content-grid{grid-template-columns:1fr}
+    .slide{height:260px}
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">Anup Regmi</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><button class="toggle" id="themeBtn" onclick="toggleTheme()">☀️</button></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="project-meta">University Project · Feb 2023 — Nov 2024</div>
+  <h1>Movie Recs — <i>Recommendation System</i></h1>
+  <p class="project-sub">A full-stack web application for discovering, managing, and enjoying personalised movie recommendations — with user auth, watchlists, favourites, reviews and AI-style suggestions.</p>
+  <div class="tags">
+    <span class="tag">Python</span>
+    <span class="tag">Flask</span>
+    <span class="tag">TMDB API</span>
+    <span class="tag">SQL</span>
+    <span class="tag">HTML / CSS</span>
+    <span class="tag">JavaScript</span>
+    <span class="tag">REST API</span>
+  </div>
+
+  <!-- CAROUSEL -->
+  <div class="carousel-wrap">
+    <div class="carousel">
+      <div class="slides" id="slides">
+        <!-- Replace filenames once you know how many screenshots -->
+        <div class="slide"><img src="images/2.1.jpg" alt="Home Page"/><div class="slide-label">Home</div></div>
+        <div class="slide"><img src="images/2.2.jpg" alt="Login"/><div class="slide-label">Login</div></div>
+        <div class="slide"><img src="images/2.3.jpg" alt="Dashboard"/><div class="slide-label">Dashboard</div></div>
+        <div class="slide"><img src="images/2.4.jpg" alt="Search"/><div class="slide-label">Search</div></div>
+        <div class="slide"><img src="images/2.5.jpg" alt="Movie Details"/><div class="slide-label">Movie Details</div></div>
+        <div class="slide"><img src="images/2.6.jpg" alt="Favourites"/><div class="slide-label">Favourites</div></div>
+        <div class="slide"><img src="images/2.7.jpg" alt="Recommendations"/><div class="slide-label">Recommendations</div></div>
+      </div>
+      <button class="carousel-btn btn-prev" onclick="move(-1)">←</button>
+      <button class="carousel-btn btn-next" onclick="move(1)">→</button>
+    </div>
+    <div class="carousel-bottom">
+      <div class="dots" id="dots"></div>
+      <div class="slide-count" id="slideCount">1 / 7</div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content-grid">
+    <div class="desc">
+      <p class="section-label">About the project</p>
+      <p>Movie Recs is a <strong>full-stack web application</strong> built as a university project. It integrates with the <strong>TMDB API</strong> to pull data on over 1,000+ movies, providing users with a rich, personalised movie discovery experience.</p>
+      <p>Users can register or log in securely, then access features including <strong>search with filters, watchlists, favourites, star ratings, personalised recommendations</strong> and community reviews — all tailored to their preferences and watch history.</p>
+      <p>Guest access is also supported, making the platform accessible to anyone without requiring sign-up.</p>
+    </div>
+
+    <div>
+      <p class="section-label">Key features</p>
+      <ul class="features">
+        <li class="feature-item"><span class="feature-num">01</span><span class="feature-text"><strong>User auth</strong> — register, login and guest access</span></li>
+        <li class="feature-item"><span class="feature-num">02</span><span class="feature-text"><strong>Search & filters</strong> — find movies by title, character or genre</span></li>
+        <li class="feature-item"><span class="feature-num">03</span><span class="feature-text"><strong>Movie details</strong> — cast, director, genres, release year and more</span></li>
+        <li class="feature-item"><span class="feature-num">04</span><span class="feature-text"><strong>Favourites & watchlist</strong> — save and sort movies your way</span></li>
+        <li class="feature-item"><span class="feature-num">05</span><span class="feature-text"><strong>Personalised recommendations</strong> — based on your ratings and history</span></li>
+        <li class="feature-item"><span class="feature-num">06</span><span class="feature-text"><strong>Star rating & reviews</strong> — rate movies and read community feedback</span></li>
+        <li class="feature-item"><span class="feature-num">07</span><span class="feature-text"><strong>TMDB API</strong> — live data for 1,000+ movies</span></li>
+      </ul>
+
+      <div class="meta-grid">
+        <div class="meta-item"><div class="meta-label">Type</div><div class="meta-val">University Project</div></div>
+        <div class="meta-item"><div class="meta-label">Platform</div><div class="meta-val">Web</div></div>
+        <div class="meta-item"><div class="meta-label">Backend</div><div class="meta-val">Python / Flask</div></div>
+        <div class="meta-item"><div class="meta-label">API</div><div class="meta-val">TMDB</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <a href="projects.html" class="bottom-btn">← All projects</a>
+    <a href="https://github.com/kingnw/movies" target="_blank" class="bottom-btn primary">View on GitHub ↗</a>
+  </div>
+</main>
+
+<footer>
+  <span>© 2026 Anup Regmi</span>
+  <span>anupme78@gmail.com</span>
+</footer>
+
+<script>
+  var total=7;
+  var cur=0;
+  var slidesEl=document.getElementById('slides');
+  var dotsEl=document.getElementById('dots');
+  var countEl=document.getElementById('slideCount');
+
+  for(var i=0;i<total;i++){
+    var d=document.createElement('button');
+    d.className='dot'+(i===0?' active':'');
+    d.setAttribute('data-i',i);
+    d.onclick=function(){goTo(+this.getAttribute('data-i'));};
+    dotsEl.appendChild(d);
+  }
+
+  function goTo(n){
+    cur=n;
+    slidesEl.style.transform='translateX(-'+cur*100+'%)';
+    countEl.textContent=(cur+1)+' / '+total;
+    document.querySelectorAll('.dot').forEach(function(d,i){d.classList.toggle('active',i===cur);});
+  }
+
+  function move(dir){goTo((cur+dir+total)%total);}
+
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowLeft')move(-1);
+    if(e.key==='ArrowRight')move(1);
+  });
+
+  if(document.documentElement.getAttribute('data-theme')==='light'){
+    document.getElementById('themeBtn').textContent='🌙';
+  }
+  function toggleTheme(){
+    var isLight=document.documentElement.getAttribute('data-theme')==='light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      sessionStorage.setItem('theme','dark');
+      document.getElementById('themeBtn').textContent='☀️';
+    } else {
+      document.documentElement.setAttribute('data-theme','light');
+      sessionStorage.setItem('theme','light');
+      document.getElementById('themeBtn').textContent='🌙';
+    }
+  }
+</script>
+</body>
+</html>
