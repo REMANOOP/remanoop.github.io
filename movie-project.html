@@ -11,7 +11,6 @@
   :root{--bg:#18181B;--fg:#F0F0F0;--border:#27272A;--muted:#52525B;--sub:#71717A;--card:#27272A;--faint:#3F3F46}
   [data-theme="light"]{--bg:#fff;--fg:#111;--border:#EBEBEB;--muted:#999;--sub:#AAA;--card:#F5F5F5;--faint:#DDD}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;display:flex;flex-direction:column;transition:background .3s,color .3s}
-
   nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;border-bottom:1px solid var(--border)}
   .logo{font-size:.95rem;font-weight:500;color:var(--fg);text-decoration:none}
   .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
@@ -33,10 +32,9 @@
   .carousel-wrap{margin-bottom:3.5rem}
   .carousel{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
   .slides{display:flex;transition:transform .4s ease}
-  .slide{min-width:100%;height:460px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--card)}
+  .slide{min-width:100%;height:460px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--card);position:relative;flex-shrink:0}
   .slide img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
-  .slide-label{position:absolute;bottom:1rem;left:1.4rem;font-size:.7rem;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase}
-
+  .slide-label{position:absolute;bottom:0;left:0;right:0;padding:.6rem 1.2rem;font-size:.7rem;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;background:linear-gradient(transparent,rgba(0,0,0,.5))}
   .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:2}
   .carousel-btn:hover{background:rgba(224,123,84,.8)}
   .btn-prev{left:.8rem}
@@ -96,7 +94,7 @@
 <main>
   <div class="project-meta">University Project · Feb 2023 — Nov 2024</div>
   <h1>Movie Recs — <i>Recommendation System</i></h1>
-  <p class="project-sub">A full-stack web application for discovering, managing, and enjoying personalised movie recommendations — with user auth, watchlists, favourites, reviews and AI-style suggestions.</p>
+  <p class="project-sub">A full-stack web application for discovering, managing, and enjoying personalised movie recommendations — with user auth, watchlists, favourites, reviews and collaborative filtering.</p>
   <div class="tags">
     <span class="tag">Python</span>
     <span class="tag">Flask</span>
@@ -105,21 +103,21 @@
     <span class="tag">HTML / CSS</span>
     <span class="tag">JavaScript</span>
     <span class="tag">REST API</span>
+    <span class="tag">Collaborative Filtering</span>
   </div>
 
   <!-- CAROUSEL -->
   <div class="carousel-wrap">
     <div class="carousel">
       <div class="slides" id="slides">
-        <!-- Replace filenames once you know how many screenshots -->
         <div class="slide"><img src="images/1.4.jpg" alt="Home Page"/><div class="slide-label">Home page</div></div>
-        <div class="slide"><img src="images/1.5.jpg" alt="Login"/><div class="slide-label">Home page 2</div></div>
-        <div class="slide"><img src="images/1.6.jpg" alt="Dashboard"/><div class="slide-label">Login and registration</div></div>
-        <div class="slide"><img src="images/1.7.jpg" alt="Search"/><div class="slide-label">Movie Details</div></div>
-        <div class="slide"><img src="images/1.8.jpg" alt="Movie Details"/><div class="slide-label">Ratings</div></div>
-        <div class="slide"><img src="images/1.9.jpg" alt="Favourites"/><div class="slide-label">Watchlist</div></div>
-        <div class="slide"><img src="images/2.0.jpg" alt="Recommendations"/><div class="slide-label">Search</div></div>
-       <div class="slide"><img src="images/2.1.jpg" alt="Recommendations"/><div class="slide-label">Recommendations</div></div>
+        <div class="slide"><img src="images/1.5.jpg" alt="Home Page 2"/><div class="slide-label">Home page 2</div></div>
+        <div class="slide"><img src="images/1.6.jpg" alt="Login and Registration"/><div class="slide-label">Login and registration</div></div>
+        <div class="slide"><img src="images/1.7.jpg" alt="Movie Details"/><div class="slide-label">Movie details</div></div>
+        <div class="slide"><img src="images/1.8.jpg" alt="Ratings"/><div class="slide-label">Ratings</div></div>
+        <div class="slide"><img src="images/1.9.jpg" alt="Watchlist"/><div class="slide-label">Watchlist</div></div>
+        <div class="slide"><img src="images/2.0.jpg" alt="Search"/><div class="slide-label">Search</div></div>
+        <div class="slide"><img src="images/2.1.jpg" alt="Recommendations"/><div class="slide-label">Recommendations</div></div>
       </div>
       <button class="carousel-btn btn-prev" onclick="move(-1)">←</button>
       <button class="carousel-btn btn-next" onclick="move(1)">→</button>
@@ -135,18 +133,18 @@
     <div class="desc">
       <p class="section-label">About the project</p>
       <p>Movie Recs is a <strong>full-stack web application</strong> built as a university project. It integrates with the <strong>TMDB API</strong> to pull data on over 1,000+ movies, providing users with a rich, personalised movie discovery experience.</p>
-      <p>Users can register or log in securely, then access features including <strong>search with filters, watchlists, favourites, star ratings, personalised recommendations</strong> and community reviews — all tailored to their preferences and watch history.</p>
-      <p>Guest access is also supported, making the platform accessible to anyone without requiring sign-up.</p>
+      <p>The standout feature is <strong>collaborative filtering</strong> — if two users share similar movie tastes, the system cross-references their preferences and surfaces recommendations the other user hasn't discovered yet. The more users interact, the smarter the recommendations get.</p>
+      <p>Users can register or log in securely, then access <strong>search with filters, watchlists, favourites, star ratings</strong> and community reviews. Guest access is also supported.</p>
     </div>
 
     <div>
       <p class="section-label">Key features</p>
       <ul class="features">
-        <li class="feature-item"><span class="feature-num">01</span><span class="feature-text"><strong>User auth</strong> — register, login and guest access</span></li>
-        <li class="feature-item"><span class="feature-num">02</span><span class="feature-text"><strong>Search & filters</strong> — find movies by title, character or genre</span></li>
-        <li class="feature-item"><span class="feature-num">03</span><span class="feature-text"><strong>Movie details</strong> — cast, director, genres, release year and more</span></li>
-        <li class="feature-item"><span class="feature-num">04</span><span class="feature-text"><strong>Favourites & watchlist</strong> — save and sort movies your way</span></li>
-        <li class="feature-item"><span class="feature-num">05</span><span class="feature-text"><strong>Personalised recommendations</strong> — based on your ratings and history</span></li>
+        <li class="feature-item"><span class="feature-num">01</span><span class="feature-text"><strong>Collaborative filtering</strong> — recommendations based on shared user tastes</span></li>
+        <li class="feature-item"><span class="feature-num">02</span><span class="feature-text"><strong>User auth</strong> — register, login and guest access</span></li>
+        <li class="feature-item"><span class="feature-num">03</span><span class="feature-text"><strong>Search & filters</strong> — find movies by title, character or genre</span></li>
+        <li class="feature-item"><span class="feature-num">04</span><span class="feature-text"><strong>Movie details</strong> — cast, director, genres, release year and more</span></li>
+        <li class="feature-item"><span class="feature-num">05</span><span class="feature-text"><strong>Favourites & watchlist</strong> — save and sort movies your way</span></li>
         <li class="feature-item"><span class="feature-num">06</span><span class="feature-text"><strong>Star rating & reviews</strong> — rate movies and read community feedback</span></li>
         <li class="feature-item"><span class="feature-num">07</span><span class="feature-text"><strong>TMDB API</strong> — live data for 1,000+ movies</span></li>
       </ul>
@@ -172,7 +170,7 @@
 </footer>
 
 <script>
-  var total=7;
+  var total=8;
   var cur=0;
   var slidesEl=document.getElementById('slides');
   var dotsEl=document.getElementById('dots');
