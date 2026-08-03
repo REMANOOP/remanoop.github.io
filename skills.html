@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Skills — Anup Regmi</title>
+<script>if(sessionStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#18181B;--fg:#F0F0F0;--border:#27272A;--muted:#52525B;--sub:#71717A;--card:#27272A;--faint:#3F3F46;--accent:#E07B54}
+  [data-theme="light"]{--bg:#fff;--fg:#111;--border:#EBEBEB;--muted:#999;--sub:#AAA;--card:#F5F5F5;--faint:#DDD;--accent:#E07B54}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);height:100vh;display:flex;flex-direction:column;overflow:hidden;transition:background .3s,color .3s}
+
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;border-bottom:1px solid var(--border);flex-shrink:0}
+  .logo{font-size:.95rem;font-weight:500;color:var(--fg);text-decoration:none}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+  .nav-links a{font-size:.85rem;color:var(--muted);text-decoration:none;transition:color .2s}
+  .nav-links a:hover,.nav-links a.active{color:var(--fg)}
+  .toggle{background:none;border:1px solid var(--border);border-radius:50px;padding:.3rem .55rem;cursor:pointer;font-size:.85rem;transition:border-color .2s}
+  .toggle:hover{border-color:var(--muted)}
+
+  .layout{display:flex;flex:1;overflow:hidden}
+
+  /* SIDEBAR */
+  .sidebar{width:220px;flex-shrink:0;border-right:1px solid var(--border);padding:2rem 1.8rem;display:flex;flex-direction:column;gap:.2rem;overflow-y:auto}
+  .sidebar-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:.8rem;margin-top:1.2rem}
+  .sidebar-label:first-child{margin-top:0}
+  .cat-btn{font-size:.82rem;color:var(--muted);padding:.45rem .7rem;border-radius:6px;cursor:pointer;transition:all .2s;border:none;background:none;font-family:'DM Sans',sans-serif;text-align:left;width:100%;display:flex;align-items:center;gap:.6rem}
+  .cat-btn:hover{color:var(--fg);background:var(--card)}
+  .cat-btn.active{color:var(--fg);background:var(--card);font-weight:500}
+  .cat-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+  /* CANVAS AREA */
+  .canvas-wrap{flex:1;position:relative;overflow:hidden}
+  canvas{position:absolute;inset:0;width:100%;height:100%}
+
+  /* TOOLTIP */
+  .tooltip{
+    position:absolute;pointer-events:none;opacity:0;
+    background:var(--card);border:1px solid var(--border);
+    border-radius:10px;padding:.8rem 1.1rem;
+    transition:opacity .2s;z-index:10;min-width:160px;
+  }
+  .tooltip.show{opacity:1}
+  .tt-name{font-size:.9rem;font-weight:500;color:var(--fg);margin-bottom:.3rem}
+  .tt-cat{font-size:.7rem;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem}
+  .tt-desc{font-size:.78rem;color:var(--sub);line-height:1.55}
+
+  /* INFO PANEL */
+  .info{position:absolute;bottom:2rem;left:2rem;font-size:.72rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">Anup Regmi</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="skills.html" class="active">Skills</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><button class="toggle" id="themeBtn" onclick="toggleTheme()">☀️</button></li>
+  </ul>
+</nav>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="sidebar-label">Filter by category</div>
+    <button class="cat-btn active" data-cat="all" onclick="setFilter('all',this)"><span class="cat-dot" style="background:var(--muted)"></span>All skills</button>
+    <button class="cat-btn" data-cat="networking" onclick="setFilter('networking',this)"><span class="cat-dot" style="background:#60A5FA"></span>Networking</button>
+    <button class="cat-btn" data-cat="security" onclick="setFilter('security',this)"><span class="cat-dot" style="background:#F87171"></span>Cybersecurity</button>
+    <button class="cat-btn" data-cat="cloud" onclick="setFilter('cloud',this)"><span class="cat-dot" style="background:#A78BFA"></span>Cloud & Virt</button>
+    <button class="cat-btn" data-cat="dev" onclick="setFilter('dev',this)"><span class="cat-dot" style="background:#34D399"></span>Development</button>
+    <button class="cat-btn" data-cat="tools" onclick="setFilter('tools',this)"><span class="cat-dot" style="background:#FBBF24"></span>Tools</button>
+
+    <div class="sidebar-label" style="margin-top:1.5rem">Certifications</div>
+    <div style="font-size:.78rem;color:var(--sub);line-height:1.8;padding:.2rem 0">
+      EDR — Qualys<br>
+      Intro to Pen Testing<br>
+      CompTIA Sec+ Fund.<br>
+      Linux & SQL — Google<br>
+      Foundations of Cybersec
+    </div>
+  </div>
+
+  <div class="canvas-wrap" id="canvasWrap">
+    <canvas id="c"></canvas>
+    <div class="tooltip" id="tooltip">
+      <div class="tt-name" id="tt-name"></div>
+      <div class="tt-cat" id="tt-cat"></div>
+      <div class="tt-desc" id="tt-desc"></div>
+    </div>
+    <div class="info">Hover over a star to explore · Click a category to filter</div>
+  </div>
+</div>
+
+<script>
+var skills=[
+  // Networking
+  {name:'Active Directory',cat:'networking',color:'#60A5FA',desc:'User management, group policies, domain setup',x:.15,y:.3},
+  {name:'DNS / DHCP',cat:'networking',color:'#60A5FA',desc:'Network services config and troubleshooting',x:.22,y:.55},
+  {name:'TCP/IP',cat:'networking',color:'#60A5FA',desc:'Core networking protocols and troubleshooting',x:.1,y:.65},
+  {name:'VPN',cat:'networking',color:'#60A5FA',desc:'Remote access and tunnel configuration',x:.3,y:.72},
+  {name:'Network Troubleshooting',cat:'networking',color:'#60A5FA',desc:'Diagnosing and resolving connectivity issues',x:.18,y:.42},
+
+  // Security
+  {name:'EDR (Qualys)',cat:'security',color:'#F87171',desc:'Endpoint detection and response monitoring',x:.55,y:.18},
+  {name:'MITRE ATT&CK',cat:'security',color:'#F87171',desc:'Threat framework for attack pattern analysis',x:.65,y:.32},
+  {name:'Penetration Testing',cat:'security',color:'#F87171',desc:'Fundamentals of ethical hacking and recon',x:.72,y:.2},
+  {name:'Vulnerability Assessment',cat:'security',color:'#F87171',desc:'Identifying and evaluating security weaknesses',x:.62,y:.48},
+  {name:'Cybersecurity Principles',cat:'security',color:'#F87171',desc:'CIA triad, security goals and controls',x:.48,y:.35},
+
+  // Cloud & Virt
+  {name:'VMware',cat:'cloud',color:'#A78BFA',desc:'VM deployment and enterprise lab simulation',x:.38,y:.2},
+  {name:'Azure VM',cat:'cloud',color:'#A78BFA',desc:'Cloud-based virtual machine setup',x:.45,y:.12},
+  {name:'Windows Server',cat:'cloud',color:'#A78BFA',desc:'Server OS admin and configuration',x:.32,y:.35},
+  {name:'Ubuntu Linux',cat:'cloud',color:'#A78BFA',desc:'CLI, file system, and server management',x:.42,y:.45},
+
+  // Dev
+  {name:'Python',cat:'dev',color:'#34D399',desc:'Scripting, automation and Flask backends',x:.7,y:.6},
+  {name:'JavaScript',cat:'dev',color:'#34D399',desc:'Front-end logic, DOM and React components',x:.8,y:.45},
+  {name:'Kotlin',cat:'dev',color:'#34D399',desc:'Android app development with MVVM',x:.85,y:.62},
+  {name:'Bash',cat:'dev',color:'#34D399',desc:'Shell scripting and lab automation',x:.75,y:.75},
+  {name:'SQL',cat:'dev',color:'#34D399',desc:'Database queries and data management',x:.58,y:.72},
+  {name:'React',cat:'dev',color:'#34D399',desc:'Component-based UI development',x:.88,y:.32},
+  {name:'REST APIs',cat:'dev',color:'#34D399',desc:'API integration and data handling',x:.78,y:.22},
+
+  // Tools
+  {name:'Git / GitHub',cat:'tools',color:'#FBBF24',desc:'Version control, branching and collaboration',x:.5,y:.6},
+  {name:'VS Code',cat:'tools',color:'#FBBF24',desc:'Primary IDE for all development work',x:.42,y:.78},
+  {name:'Android Studio',cat:'tools',color:'#FBBF24',desc:'Mobile app development environment',x:.55,y:.85},
+  {name:'Flask',cat:'tools',color:'#FBBF24',desc:'Lightweight Python web framework',x:.28,y:.85},
+];
+
+var canvas=document.getElementById('c');
+var ctx=canvas.getContext('2d');
+var tooltip=document.getElementById('tooltip');
+var wrap=document.getElementById('canvasWrap');
+var activeFilter='all';
+var hovered=null;
+var W,H;
+
+function resize(){
+  W=canvas.width=wrap.clientWidth;
+  H=canvas.height=wrap.clientHeight;
+  draw();
+}
+
+function getPos(s){return{x:s.x*W,y:s.y*H};}
+
+function visible(s){return activeFilter==='all'||s.cat===activeFilter;}
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  var isDark=document.documentElement.getAttribute('data-theme')!=='light';
+
+  // Draw connections
+  skills.forEach(function(a,i){
+    if(!visible(a))return;
+    skills.forEach(function(b,j){
+      if(j<=i||!visible(b))return;
+      if(a.cat!==b.cat)return;
+      var pa=getPos(a),pb=getPos(b);
+      var dx=pa.x-pb.x,dy=pa.y-pb.y;
+      var dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist>W*0.28){return;}
+      ctx.beginPath();
+      ctx.moveTo(pa.x,pa.y);
+      ctx.lineTo(pb.x,pb.y);
+      ctx.strokeStyle=isDark?'rgba(255,255,255,0.04)':'rgba(0,0,0,0.06)';
+      ctx.lineWidth=1;
+      ctx.stroke();
+    });
+  });
+
+  // Draw nodes
+  skills.forEach(function(s){
+    var p=getPos(s);
+    var isHov=hovered===s;
+    var vis=visible(s);
+    var alpha=vis?1:.08;
+    var r=isHov?9:6;
+
+    // Glow
+    if(isHov&&vis){
+      var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,24);
+      g.addColorStop(0,s.color+'44');
+      g.addColorStop(1,'transparent');
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,24,0,Math.PI*2);
+      ctx.fillStyle=g;
+      ctx.fill();
+    }
+
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,r,0,Math.PI*2);
+    ctx.fillStyle=s.color+(alpha<1?Math.round(alpha*255).toString(16).padStart(2,'0'):'');
+    ctx.fill();
+
+    if(vis){
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,r+2,0,Math.PI*2);
+      ctx.strokeStyle=s.color+'33';
+      ctx.lineWidth=1.5;
+      ctx.stroke();
+    }
+
+    // Label
+    if(vis){
+      ctx.font=(isHov?'500 ':'300 ')+'11px DM Sans, sans-serif';
+      ctx.fillStyle=isHov?s.color:(isDark?'rgba(240,240,240,0.55)':'rgba(17,17,17,0.45)');
+      ctx.textAlign='center';
+      ctx.fillText(s.name,p.x,p.y+r+14);
+    }
+  });
+}
+
+canvas.addEventListener('mousemove',function(e){
+  var rect=canvas.getBoundingClientRect();
+  var mx=e.clientX-rect.left,my=e.clientY-rect.top;
+  var found=null;
+  skills.forEach(function(s){
+    if(!visible(s))return;
+    var p=getPos(s);
+    var dx=p.x-mx,dy=p.y-my;
+    if(Math.sqrt(dx*dx+dy*dy)<16)found=s;
+  });
+  if(found!==hovered){
+    hovered=found;
+    draw();
+  }
+  if(found){
+    canvas.style.cursor='pointer';
+    var p=getPos(found);
+    var tx=p.x+20,ty=p.y-20;
+    if(tx+180>W)tx=p.x-190;
+    if(ty+100>H)ty=p.y-110;
+    tooltip.style.left=tx+'px';
+    tooltip.style.top=ty+'px';
+    document.getElementById('tt-name').textContent=found.name;
+    document.getElementById('tt-cat').textContent=found.cat.charAt(0).toUpperCase()+found.cat.slice(1);
+    document.getElementById('tt-desc').textContent=found.desc;
+    tooltip.classList.add('show');
+  } else {
+    canvas.style.cursor='default';
+    tooltip.classList.remove('show');
+  }
+});
+
+canvas.addEventListener('mouseleave',function(){
+  hovered=null;
+  tooltip.classList.remove('show');
+  draw();
+});
+
+function setFilter(cat,btn){
+  activeFilter=cat;
+  document.querySelectorAll('.cat-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  hovered=null;
+  tooltip.classList.remove('show');
+  draw();
+}
+
+function toggleTheme(){
+  var isLight=document.documentElement.getAttribute('data-theme')==='light';
+  if(isLight){
+    document.documentElement.removeAttribute('data-theme');
+    sessionStorage.setItem('theme','dark');
+    document.getElementById('themeBtn').textContent='☀️';
+  } else {
+    document.documentElement.setAttribute('data-theme','light');
+    sessionStorage.setItem('theme','light');
+    document.getElementById('themeBtn').textContent='🌙';
+  }
+  draw();
+}
+
+if(document.documentElement.getAttribute('data-theme')==='light'){
+  document.getElementById('themeBtn').textContent='🌙';
+}
+
+window.addEventListener('resize',resize);
+resize();
+</script>
+</body>
+</html>
