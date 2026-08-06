@@ -28,7 +28,14 @@
   .tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:3rem}
   .tag{font-size:.72rem;padding:.3rem .8rem;border-radius:50px;border:1px solid var(--border);color:var(--muted)}
 
-  /* GALLERY */
+  /* LIGHTBOX */
+  .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:100;align-items:center;justify-content:center;cursor:zoom-out}
+  .lightbox.open{display:flex}
+  .lightbox-inner{position:relative;width:min(85vw,900px);border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+  .lightbox-inner img{width:100%;display:block;max-height:80vh;object-fit:contain;background:var(--card)}
+  .lightbox-close{position:absolute;top:.7rem;right:.7rem;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
+  .lightbox-close:hover{background:rgba(224,123,84,.8)}
+  .gallery-item{cursor:zoom-in}
   .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:3.5rem}
   .gallery-item{border-radius:8px;overflow:hidden;border:1px solid var(--border);background:var(--card);position:relative}
   .gallery-item img{width:100%;height:200px;object-fit:cover;object-position:top;display:block;transition:transform .3s}
@@ -70,6 +77,12 @@
 </style>
 </head>
 <body>
+<div class="lightbox" id="lightbox" onclick="closeLB()">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <img id="lb-img" src="" alt=""/>
+    <button class="lightbox-close" onclick="closeLB()">✕</button>
+  </div>
+</div>
 <nav>
   <a href="index.html" class="logo">Anup Regmi</a>
   <ul class="nav-links">
@@ -148,7 +161,14 @@
 <script>
 
 
-  if(document.documentElement.getAttribute('data-theme')==='light'){document.getElementById('themeBtn').textContent='🌙';}
+  document.querySelectorAll('.gallery-item img').forEach(function(img){
+    img.addEventListener('click',function(){
+      document.getElementById('lb-img').src=this.src;
+      document.getElementById('lightbox').classList.add('open');
+    });
+  });
+  function closeLB(){document.getElementById('lightbox').classList.remove('open');}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLB();});{document.getElementById('themeBtn').textContent='🌙';}
   function toggleTheme(){
     var isLight=document.documentElement.getAttribute('data-theme')==='light';
     if(isLight){document.documentElement.removeAttribute('data-theme');sessionStorage.setItem('theme','dark');document.getElementById('themeBtn').textContent='☀️';}
