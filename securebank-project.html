@@ -28,22 +28,12 @@
   .tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:3rem}
   .tag{font-size:.72rem;padding:.3rem .8rem;border-radius:50px;border:1px solid var(--border);color:var(--muted)}
 
-  /* CAROUSEL */
-  .carousel-wrap{margin-bottom:3.5rem}
-  .carousel{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
-  .slides{display:flex;transition:transform .4s ease}
-  .slide{min-width:100%;height:480px;display:flex;align-items:flex-start;justify-content:center;background:var(--card);position:relative;flex-shrink:0;overflow-y:auto;overflow-x:hidden}
-  .slide img{width:100%;height:auto;display:block;background:var(--card)}
-  .slide-label{position:absolute;bottom:0;left:0;right:0;padding:.6rem 1.2rem;font-size:.7rem;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;background:linear-gradient(transparent,rgba(0,0,0,.6))}
-  .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:2}
-  .carousel-btn:hover{background:rgba(224,123,84,.8)}
-  .btn-prev{left:.8rem}
-  .btn-next{right:.8rem}
-  .carousel-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:.8rem}
-  .dots{display:flex;gap:.5rem;align-items:center}
-  .dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .2s,width .2s;border:none;padding:0}
-  .dot.active{background:#E07B54;width:18px;border-radius:3px}
-  .slide-count{font-size:.75rem;color:var(--muted)}
+  /* GALLERY */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:3.5rem}
+  .gallery-item{border-radius:8px;overflow:hidden;border:1px solid var(--border);background:var(--card);position:relative}
+  .gallery-item img{width:100%;height:200px;object-fit:cover;object-position:top;display:block;transition:transform .3s}
+  .gallery-item:hover img{transform:scale(1.03)}
+  .gallery-label{font-size:.65rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding:.5rem .8rem;background:var(--card);border-top:1px solid var(--border)}
 
   /* CONTENT */
   .content-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:3.5rem;margin-bottom:3rem}
@@ -106,24 +96,14 @@
     <span class="tag">OWASP ZAP</span>
   </div>
 
-  <div class="carousel-wrap">
-    <div class="carousel">
-      <div class="slides" id="slides">
-        <div class="slide"><img src="images/2.8.jpg" alt="Registration"/><div class="slide-label">Registration page</div></div>
-        <div class="slide"><img src="images/3.1.jpg" alt="Password Hashing"/><div class="slide-label">Password hashing</div></div>
-        <div class="slide"><img src="images/2.7.jpg" alt="Password Complexity"/><div class="slide-label">Password complexity</div></div>
-        <div class="slide"><img src="images/2.6.jpg" alt="CSP"/><div class="slide-label">Content security policy</div></div>
-        <div class="slide"><img src="images/3.2.jpg" alt="CSRF"/><div class="slide-label">Tailwind & CSRF implementation</div></div>
-        <div class="slide"><img src="images/3.0.jpg" alt="ZAP Scan"/><div class="slide-label">OWASP ZAP scan</div></div>
-        <div class="slide"><img src="images/2.9.jpg" alt="ZAP Fixed"/><div class="slide-label">ZAP issues resolved</div></div>
-      </div>
-      <button class="carousel-btn btn-prev" onclick="move(-1)">←</button>
-      <button class="carousel-btn btn-next" onclick="move(1)">→</button>
-    </div>
-    <div class="carousel-bottom">
-      <div class="dots" id="dots"></div>
-      <div class="slide-count" id="slideCount">1 / 7</div>
-    </div>
+  <div class="gallery">
+    <div class="gallery-item"><img src="images/2.8.jpg" alt="Registration"/><div class="gallery-label">Registration page</div></div>
+    <div class="gallery-item"><img src="images/3.1.jpg" alt="Password Hashing"/><div class="gallery-label">Password hashing</div></div>
+    <div class="gallery-item"><img src="images/2.7.jpg" alt="Password Complexity"/><div class="gallery-label">Password complexity</div></div>
+    <div class="gallery-item"><img src="images/2.6.jpg" alt="CSP"/><div class="gallery-label">Content security policy</div></div>
+    <div class="gallery-item"><img src="images/3.2.jpg" alt="CSRF"/><div class="gallery-label">CSRF implementation</div></div>
+    <div class="gallery-item"><img src="images/3.0.jpg" alt="ZAP Scan"/><div class="gallery-label">OWASP ZAP scan</div></div>
+    <div class="gallery-item"><img src="images/2.9.jpg" alt="ZAP Fixed"/><div class="gallery-label">ZAP issues resolved</div></div>
   </div>
 
   <div class="content-grid">
@@ -166,31 +146,7 @@
 </footer>
 
 <script>
-  var total=7, cur=0;
-  var slidesEl=document.getElementById('slides');
-  var dotsEl=document.getElementById('dots');
-  var countEl=document.getElementById('slideCount');
 
-  for(var i=0;i<total;i++){
-    var d=document.createElement('button');
-    d.className='dot'+(i===0?' active':'');
-    d.setAttribute('data-i',i);
-    d.onclick=function(){goTo(+this.getAttribute('data-i'));};
-    dotsEl.appendChild(d);
-  }
-
-  function goTo(n){
-    cur=n;
-    slidesEl.style.transform='translateX(-'+cur*100+'%)';
-    countEl.textContent=(cur+1)+' / '+total;
-    document.querySelectorAll('.dot').forEach(function(d,i){d.classList.toggle('active',i===cur);});
-  }
-  function move(dir){goTo((cur+dir+total)%total);}
-
-  document.addEventListener('keydown',function(e){
-    if(e.key==='ArrowLeft')move(-1);
-    if(e.key==='ArrowRight')move(1);
-  });
 
   if(document.documentElement.getAttribute('data-theme')==='light'){document.getElementById('themeBtn').textContent='🌙';}
   function toggleTheme(){
